@@ -7,15 +7,21 @@ import {
   Delete,
   UseGuards,
   UnauthorizedException,
+  Post,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { AuthGuard } from '@nestjs/passport';
-import { UpdateUserDto } from './dto/update-user.dto';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
+import { CreateUserDto, UpdateUserDto } from './dto/user.dto';
 
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
+
+  @Post()
+  createUser(@Body() createU: CreateUserDto) {
+    return this.usersService.create(createU);
+  }
 
   @Get()
   findAll() {

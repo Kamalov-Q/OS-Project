@@ -5,12 +5,13 @@ import {
 } from '@nestjs/common';
 import { CreateUserDto, UpdateUserDto } from './dto/user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
   constructor(private readonly prisma: PrismaService) {}
   async create(createUserDto: CreateUserDto) {
-    const { username, pseudoname } = createUserDto;
+    const { username, pseudoname, password, avatarUrl } = createUserDto;
 
     const existingUser = await this.prisma.user.findFirst({
       where: {
@@ -18,12 +19,25 @@ export class UsersService {
       },
     });
 
+    const hashedPassword = await bcrypt.hash(password, 10);
+
     if (existingUser) {
       throw new BadRequestException('Username or pseudoname already exists');
     }
 
     return this.prisma.user.create({
-      data: createUserDto,
+      data: {
+        username,
+        pseudoname,
+        password: hashedPassword,
+      },
+      select: {
+        id: true,
+        join_date: true,
+        avatarUrl: true,
+        username: true,
+        pseudoname: true,
+      },
     });
   }
 
@@ -45,8 +59,13 @@ export class UsersService {
   }
 
   async findByUsername(username: string) {
-    const user = await this.prisma.user.findUnique({
-      where: { username },
+    const user = await this.prisma.user.findFirst({
+      where: {
+        username: {
+          equals: username,
+          mode: 'insensitive',
+        },
+      },
     });
 
     if (!user) {
