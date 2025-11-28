@@ -1,0 +1,38 @@
+{
+  "name": "threads-backend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "nest start",
+    "dev": "nest start --watch",
+    "build": "nest build",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev --name init",
+    "seed": "ts-node --transpile-only prisma/seed.ts"
+  },
+  "dependencies": {
+    "@nestjs/common": "^10.4.20",
+    "@nestjs/core": "^10.4.20",
+    "@nestjs/jwt": "^10.0.0",
+    "@nestjs/mapped-types": "*",
+    "@nestjs/passport": "^10.0.0",
+    "@nestjs/platform-express": "^10.4.20",
+    "@prisma/adapter-pg": "^7.0.1",
+    "@prisma/client": "^5.0.0",
+    "bcrypt": "^5.1.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0",
+    "multer": "^2.0.2",
+    "passport": "^0.6.0",
+    "passport-jwt": "^4.0.0"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^10.0.0",
+    "@nestjs/testing": "^10.0.0",
+    "@types/bcrypt": "^6.0.0",
+    "@types/multer": "^2.0.0",
+    "prisma": "^5.22.0",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.0"
+  }
+}
