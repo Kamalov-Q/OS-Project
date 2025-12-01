@@ -1,26 +1,49 @@
 import { Injectable } from '@nestjs/common';
-import { CreateLikeDto } from './dto/create-like.dto';
-import { UpdateLikeDto } from './dto/update-like.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class LikesService {
-  create(createLikeDto: CreateLikeDto) {
-    return 'This action adds a new like';
+  constructor(private readonly prisma: PrismaService) {}
+
+  async toggleLike(userId: string, postId: string) {
+    const existing = await this.prisma.like.findUnique({
+      where: {
+        postId_userId: { postId, userId },
+      },
+    });
+
+    if (existing) {
+      // Unlike
+      await this.prisma.like.delete({
+        where: { id: existing?.id },
+      });
+
+      return { liked: false };
+    }
+
+    // Like
+    await this.prisma.like.create({
+      data: {
+        userId,
+        postId,
+      },
+    });
+
+    return { liked: true };
   }
 
-  findAll() {
-    return `This action returns all likes`;
+  async count(postId: string) {
+    const count = await this.prisma.like.count({
+      where: { postId },
+    });
+
+    return { postId, count };
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} like`;
-  }
-
-  update(id: number, updateLikeDto: UpdateLikeDto) {
-    return `This action updates a #${id} like`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} like`;
+  async getLikers(postId: string) {
+    return this.prisma.like.findMany({
+      where: { postId },
+      include: { user: true },
+    });
   }
 }
