@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Injectable,
   NotFoundException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { CreateUserDto, UpdateUserDto } from './dto/user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -30,6 +31,7 @@ export class UsersService {
         username,
         pseudoname,
         password: hashedPassword,
+        avatarUrl,
       },
       select: {
         id: true,
@@ -90,8 +92,11 @@ export class UsersService {
     });
   }
 
-  async update(id: string, updateUserDto: UpdateUserDto) {
-    await this.findById(id);
+  async update(id: string, updateUserDto: UpdateUserDto, userId: string) {
+    const user = await this.findById(id);
+    if (user.id !== userId) {
+      throw new UnauthorizedException();
+    }
 
     return this.prisma.user.update({
       where: { id },
@@ -99,8 +104,12 @@ export class UsersService {
     });
   }
 
-  async delete(id: string) {
-    await this.findById(id);
+  async delete(id: string, userId: string) {
+    const user = await this.findById(id);
+    if (user.id !== userId) {
+      throw new UnauthorizedException();
+    }
+
     return this.prisma.user.delete({
       where: { id },
     });

@@ -6,7 +6,6 @@ import {
   Param,
   Delete,
   UseGuards,
-  UnauthorizedException,
   Post,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
@@ -43,22 +42,14 @@ export class UsersController {
   update(
     @Param('id') id: string,
     @Body() updateUserDto: UpdateUserDto,
-    @CurrentUser() user: any,
+    @CurrentUser() user: { userId: string },
   ) {
-    // Only allow users to update their own profile
-    if (user.userId !== id) {
-      throw new UnauthorizedException();
-    }
-    return this.usersService.update(id, updateUserDto);
+    return this.usersService.update(id, updateUserDto, user.userId as string);
   }
 
   @Delete(':id')
   @UseGuards(AuthGuard('jwt'))
-  delete(@Param('id') id: string, @CurrentUser() user: any) {
-    if (user.userId !== id) {
-      throw new UnauthorizedException();
-    }
-
-    return this.usersService.delete(id);
+  delete(@Param('id') id: string, @CurrentUser() user: { userId: string }) {
+    return this.usersService.delete(id, user.userId as string);
   }
 }

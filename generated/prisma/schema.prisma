@@ -33,7 +33,7 @@ model Post {
   created_at DateTime   @default(now())
   comments   Comment[]
   likes      Like[]
-  postViews  PostView[]
+  views      PostView[]
 }
 
 model Comment {

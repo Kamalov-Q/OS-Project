@@ -1446,13 +1446,13 @@ export namespace Prisma {
   export type PostCountOutputType = {
     comments: number
     likes: number
-    postViews: number
+    views: number
   }
 
   export type PostCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     comments?: boolean | PostCountOutputTypeCountCommentsArgs
     likes?: boolean | PostCountOutputTypeCountLikesArgs
-    postViews?: boolean | PostCountOutputTypeCountPostViewsArgs
+    views?: boolean | PostCountOutputTypeCountViewsArgs
   }
 
   // Custom InputTypes
@@ -1483,7 +1483,7 @@ export namespace Prisma {
   /**
    * PostCountOutputType without action
    */
-  export type PostCountOutputTypeCountPostViewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type PostCountOutputTypeCountViewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PostViewWhereInput
   }
 
@@ -2763,7 +2763,7 @@ export namespace Prisma {
     user?: boolean | UserDefaultArgs<ExtArgs>
     comments?: boolean | Post$commentsArgs<ExtArgs>
     likes?: boolean | Post$likesArgs<ExtArgs>
-    postViews?: boolean | Post$postViewsArgs<ExtArgs>
+    views?: boolean | Post$viewsArgs<ExtArgs>
     _count?: boolean | PostCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["post"]>
 
@@ -2788,7 +2788,7 @@ export namespace Prisma {
     user?: boolean | UserDefaultArgs<ExtArgs>
     comments?: boolean | Post$commentsArgs<ExtArgs>
     likes?: boolean | Post$likesArgs<ExtArgs>
-    postViews?: boolean | Post$postViewsArgs<ExtArgs>
+    views?: boolean | Post$viewsArgs<ExtArgs>
     _count?: boolean | PostCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type PostIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2801,7 +2801,7 @@ export namespace Prisma {
       user: Prisma.$UserPayload<ExtArgs>
       comments: Prisma.$CommentPayload<ExtArgs>[]
       likes: Prisma.$LikePayload<ExtArgs>[]
-      postViews: Prisma.$PostViewPayload<ExtArgs>[]
+      views: Prisma.$PostViewPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -3176,7 +3176,7 @@ export namespace Prisma {
     user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow"> | Null, Null, ExtArgs>
     comments<T extends Post$commentsArgs<ExtArgs> = {}>(args?: Subset<T, Post$commentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$CommentPayload<ExtArgs>, T, "findMany"> | Null>
     likes<T extends Post$likesArgs<ExtArgs> = {}>(args?: Subset<T, Post$likesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$LikePayload<ExtArgs>, T, "findMany"> | Null>
-    postViews<T extends Post$postViewsArgs<ExtArgs> = {}>(args?: Subset<T, Post$postViewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostViewPayload<ExtArgs>, T, "findMany"> | Null>
+    views<T extends Post$viewsArgs<ExtArgs> = {}>(args?: Subset<T, Post$viewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PostViewPayload<ExtArgs>, T, "findMany"> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3569,9 +3569,9 @@ export namespace Prisma {
   }
 
   /**
-   * Post.postViews
+   * Post.views
    */
-  export type Post$postViewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type Post$viewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the PostView
      */
@@ -8483,7 +8483,7 @@ export namespace Prisma {
     user?: XOR<UserRelationFilter, UserWhereInput>
     comments?: CommentListRelationFilter
     likes?: LikeListRelationFilter
-    postViews?: PostViewListRelationFilter
+    views?: PostViewListRelationFilter
   }
 
   export type PostOrderByWithRelationInput = {
@@ -8495,7 +8495,7 @@ export namespace Prisma {
     user?: UserOrderByWithRelationInput
     comments?: CommentOrderByRelationAggregateInput
     likes?: LikeOrderByRelationAggregateInput
-    postViews?: PostViewOrderByRelationAggregateInput
+    views?: PostViewOrderByRelationAggregateInput
   }
 
   export type PostWhereUniqueInput = Prisma.AtLeast<{
@@ -8510,7 +8510,7 @@ export namespace Prisma {
     user?: XOR<UserRelationFilter, UserWhereInput>
     comments?: CommentListRelationFilter
     likes?: LikeListRelationFilter
-    postViews?: PostViewListRelationFilter
+    views?: PostViewListRelationFilter
   }, "id">
 
   export type PostOrderByWithAggregationInput = {
@@ -8899,7 +8899,7 @@ export namespace Prisma {
     user: UserCreateNestedOneWithoutPostsInput
     comments?: CommentCreateNestedManyWithoutPostInput
     likes?: LikeCreateNestedManyWithoutPostInput
-    postViews?: PostViewCreateNestedManyWithoutPostInput
+    views?: PostViewCreateNestedManyWithoutPostInput
   }
 
   export type PostUncheckedCreateInput = {
@@ -8910,7 +8910,7 @@ export namespace Prisma {
     created_at?: Date | string
     comments?: CommentUncheckedCreateNestedManyWithoutPostInput
     likes?: LikeUncheckedCreateNestedManyWithoutPostInput
-    postViews?: PostViewUncheckedCreateNestedManyWithoutPostInput
+    views?: PostViewUncheckedCreateNestedManyWithoutPostInput
   }
 
   export type PostUpdateInput = {
@@ -8921,7 +8921,7 @@ export namespace Prisma {
     user?: UserUpdateOneRequiredWithoutPostsNestedInput
     comments?: CommentUpdateManyWithoutPostNestedInput
     likes?: LikeUpdateManyWithoutPostNestedInput
-    postViews?: PostViewUpdateManyWithoutPostNestedInput
+    views?: PostViewUpdateManyWithoutPostNestedInput
   }
 
   export type PostUncheckedUpdateInput = {
@@ -8932,7 +8932,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     comments?: CommentUncheckedUpdateManyWithoutPostNestedInput
     likes?: LikeUncheckedUpdateManyWithoutPostNestedInput
-    postViews?: PostViewUncheckedUpdateManyWithoutPostNestedInput
+    views?: PostViewUncheckedUpdateManyWithoutPostNestedInput
   }
 
   export type PostCreateManyInput = {
@@ -9150,7 +9150,7 @@ export namespace Prisma {
   export type PostViewCreateInput = {
     id?: string
     viewedAt?: Date | string
-    post: PostCreateNestedOneWithoutPostViewsInput
+    post: PostCreateNestedOneWithoutViewsInput
     user: UserCreateNestedOneWithoutViewsInput
   }
 
@@ -9164,7 +9164,7 @@ export namespace Prisma {
   export type PostViewUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     viewedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    post?: PostUpdateOneRequiredWithoutPostViewsNestedInput
+    post?: PostUpdateOneRequiredWithoutViewsNestedInput
     user?: UserUpdateOneRequiredWithoutViewsNestedInput
   }
 
@@ -10075,9 +10075,9 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutNotificationsInput, UserUpdateWithoutNotificationsInput>, UserUncheckedUpdateWithoutNotificationsInput>
   }
 
-  export type PostCreateNestedOneWithoutPostViewsInput = {
-    create?: XOR<PostCreateWithoutPostViewsInput, PostUncheckedCreateWithoutPostViewsInput>
-    connectOrCreate?: PostCreateOrConnectWithoutPostViewsInput
+  export type PostCreateNestedOneWithoutViewsInput = {
+    create?: XOR<PostCreateWithoutViewsInput, PostUncheckedCreateWithoutViewsInput>
+    connectOrCreate?: PostCreateOrConnectWithoutViewsInput
     connect?: PostWhereUniqueInput
   }
 
@@ -10087,12 +10087,12 @@ export namespace Prisma {
     connect?: UserWhereUniqueInput
   }
 
-  export type PostUpdateOneRequiredWithoutPostViewsNestedInput = {
-    create?: XOR<PostCreateWithoutPostViewsInput, PostUncheckedCreateWithoutPostViewsInput>
-    connectOrCreate?: PostCreateOrConnectWithoutPostViewsInput
-    upsert?: PostUpsertWithoutPostViewsInput
+  export type PostUpdateOneRequiredWithoutViewsNestedInput = {
+    create?: XOR<PostCreateWithoutViewsInput, PostUncheckedCreateWithoutViewsInput>
+    connectOrCreate?: PostCreateOrConnectWithoutViewsInput
+    upsert?: PostUpsertWithoutViewsInput
     connect?: PostWhereUniqueInput
-    update?: XOR<XOR<PostUpdateToOneWithWhereWithoutPostViewsInput, PostUpdateWithoutPostViewsInput>, PostUncheckedUpdateWithoutPostViewsInput>
+    update?: XOR<XOR<PostUpdateToOneWithWhereWithoutViewsInput, PostUpdateWithoutViewsInput>, PostUncheckedUpdateWithoutViewsInput>
   }
 
   export type UserUpdateOneRequiredWithoutViewsNestedInput = {
@@ -10219,7 +10219,7 @@ export namespace Prisma {
     created_at?: Date | string
     comments?: CommentCreateNestedManyWithoutPostInput
     likes?: LikeCreateNestedManyWithoutPostInput
-    postViews?: PostViewCreateNestedManyWithoutPostInput
+    views?: PostViewCreateNestedManyWithoutPostInput
   }
 
   export type PostUncheckedCreateWithoutUserInput = {
@@ -10229,7 +10229,7 @@ export namespace Prisma {
     created_at?: Date | string
     comments?: CommentUncheckedCreateNestedManyWithoutPostInput
     likes?: LikeUncheckedCreateNestedManyWithoutPostInput
-    postViews?: PostViewUncheckedCreateNestedManyWithoutPostInput
+    views?: PostViewUncheckedCreateNestedManyWithoutPostInput
   }
 
   export type PostCreateOrConnectWithoutUserInput = {
@@ -10353,7 +10353,7 @@ export namespace Prisma {
   export type PostViewCreateWithoutUserInput = {
     id?: string
     viewedAt?: Date | string
-    post: PostCreateNestedOneWithoutPostViewsInput
+    post: PostCreateNestedOneWithoutViewsInput
   }
 
   export type PostViewUncheckedCreateWithoutUserInput = {
@@ -10742,7 +10742,7 @@ export namespace Prisma {
     created_at?: Date | string
     user: UserCreateNestedOneWithoutPostsInput
     likes?: LikeCreateNestedManyWithoutPostInput
-    postViews?: PostViewCreateNestedManyWithoutPostInput
+    views?: PostViewCreateNestedManyWithoutPostInput
   }
 
   export type PostUncheckedCreateWithoutCommentsInput = {
@@ -10752,7 +10752,7 @@ export namespace Prisma {
     imageUrl?: string | null
     created_at?: Date | string
     likes?: LikeUncheckedCreateNestedManyWithoutPostInput
-    postViews?: PostViewUncheckedCreateNestedManyWithoutPostInput
+    views?: PostViewUncheckedCreateNestedManyWithoutPostInput
   }
 
   export type PostCreateOrConnectWithoutCommentsInput = {
@@ -10813,7 +10813,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutPostsNestedInput
     likes?: LikeUpdateManyWithoutPostNestedInput
-    postViews?: PostViewUpdateManyWithoutPostNestedInput
+    views?: PostViewUpdateManyWithoutPostNestedInput
   }
 
   export type PostUncheckedUpdateWithoutCommentsInput = {
@@ -10823,7 +10823,7 @@ export namespace Prisma {
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     likes?: LikeUncheckedUpdateManyWithoutPostNestedInput
-    postViews?: PostViewUncheckedUpdateManyWithoutPostNestedInput
+    views?: PostViewUncheckedUpdateManyWithoutPostNestedInput
   }
 
   export type UserUpsertWithoutCommentsInput = {
@@ -10874,7 +10874,7 @@ export namespace Prisma {
     created_at?: Date | string
     user: UserCreateNestedOneWithoutPostsInput
     comments?: CommentCreateNestedManyWithoutPostInput
-    postViews?: PostViewCreateNestedManyWithoutPostInput
+    views?: PostViewCreateNestedManyWithoutPostInput
   }
 
   export type PostUncheckedCreateWithoutLikesInput = {
@@ -10884,7 +10884,7 @@ export namespace Prisma {
     imageUrl?: string | null
     created_at?: Date | string
     comments?: CommentUncheckedCreateNestedManyWithoutPostInput
-    postViews?: PostViewUncheckedCreateNestedManyWithoutPostInput
+    views?: PostViewUncheckedCreateNestedManyWithoutPostInput
   }
 
   export type PostCreateOrConnectWithoutLikesInput = {
@@ -10945,7 +10945,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutPostsNestedInput
     comments?: CommentUpdateManyWithoutPostNestedInput
-    postViews?: PostViewUpdateManyWithoutPostNestedInput
+    views?: PostViewUpdateManyWithoutPostNestedInput
   }
 
   export type PostUncheckedUpdateWithoutLikesInput = {
@@ -10955,7 +10955,7 @@ export namespace Prisma {
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     comments?: CommentUncheckedUpdateManyWithoutPostNestedInput
-    postViews?: PostViewUncheckedUpdateManyWithoutPostNestedInput
+    views?: PostViewUncheckedUpdateManyWithoutPostNestedInput
   }
 
   export type UserUpsertWithoutLikesInput = {
@@ -11227,7 +11227,7 @@ export namespace Prisma {
     views?: PostViewUncheckedUpdateManyWithoutUserNestedInput
   }
 
-  export type PostCreateWithoutPostViewsInput = {
+  export type PostCreateWithoutViewsInput = {
     id?: string
     content: string
     imageUrl?: string | null
@@ -11237,7 +11237,7 @@ export namespace Prisma {
     likes?: LikeCreateNestedManyWithoutPostInput
   }
 
-  export type PostUncheckedCreateWithoutPostViewsInput = {
+  export type PostUncheckedCreateWithoutViewsInput = {
     id?: string
     userId: string
     content: string
@@ -11247,9 +11247,9 @@ export namespace Prisma {
     likes?: LikeUncheckedCreateNestedManyWithoutPostInput
   }
 
-  export type PostCreateOrConnectWithoutPostViewsInput = {
+  export type PostCreateOrConnectWithoutViewsInput = {
     where: PostWhereUniqueInput
-    create: XOR<PostCreateWithoutPostViewsInput, PostUncheckedCreateWithoutPostViewsInput>
+    create: XOR<PostCreateWithoutViewsInput, PostUncheckedCreateWithoutViewsInput>
   }
 
   export type UserCreateWithoutViewsInput = {
@@ -11287,18 +11287,18 @@ export namespace Prisma {
     create: XOR<UserCreateWithoutViewsInput, UserUncheckedCreateWithoutViewsInput>
   }
 
-  export type PostUpsertWithoutPostViewsInput = {
-    update: XOR<PostUpdateWithoutPostViewsInput, PostUncheckedUpdateWithoutPostViewsInput>
-    create: XOR<PostCreateWithoutPostViewsInput, PostUncheckedCreateWithoutPostViewsInput>
+  export type PostUpsertWithoutViewsInput = {
+    update: XOR<PostUpdateWithoutViewsInput, PostUncheckedUpdateWithoutViewsInput>
+    create: XOR<PostCreateWithoutViewsInput, PostUncheckedCreateWithoutViewsInput>
     where?: PostWhereInput
   }
 
-  export type PostUpdateToOneWithWhereWithoutPostViewsInput = {
+  export type PostUpdateToOneWithWhereWithoutViewsInput = {
     where?: PostWhereInput
-    data: XOR<PostUpdateWithoutPostViewsInput, PostUncheckedUpdateWithoutPostViewsInput>
+    data: XOR<PostUpdateWithoutViewsInput, PostUncheckedUpdateWithoutViewsInput>
   }
 
-  export type PostUpdateWithoutPostViewsInput = {
+  export type PostUpdateWithoutViewsInput = {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
     imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
@@ -11308,7 +11308,7 @@ export namespace Prisma {
     likes?: LikeUpdateManyWithoutPostNestedInput
   }
 
-  export type PostUncheckedUpdateWithoutPostViewsInput = {
+  export type PostUncheckedUpdateWithoutViewsInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
@@ -11408,7 +11408,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     comments?: CommentUpdateManyWithoutPostNestedInput
     likes?: LikeUpdateManyWithoutPostNestedInput
-    postViews?: PostViewUpdateManyWithoutPostNestedInput
+    views?: PostViewUpdateManyWithoutPostNestedInput
   }
 
   export type PostUncheckedUpdateWithoutUserInput = {
@@ -11418,7 +11418,7 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     comments?: CommentUncheckedUpdateManyWithoutPostNestedInput
     likes?: LikeUncheckedUpdateManyWithoutPostNestedInput
-    postViews?: PostViewUncheckedUpdateManyWithoutPostNestedInput
+    views?: PostViewUncheckedUpdateManyWithoutPostNestedInput
   }
 
   export type PostUncheckedUpdateManyWithoutUserInput = {
@@ -11518,7 +11518,7 @@ export namespace Prisma {
   export type PostViewUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     viewedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    post?: PostUpdateOneRequiredWithoutPostViewsNestedInput
+    post?: PostUpdateOneRequiredWithoutViewsNestedInput
   }
 
   export type PostViewUncheckedUpdateWithoutUserInput = {
