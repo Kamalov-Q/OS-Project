@@ -1,34 +1,38 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Param, UseGuards } from '@nestjs/common';
 import { FollowersService } from './followers.service';
-import { CreateFollowerDto } from './dto/create-follower.dto';
-import { UpdateFollowerDto } from './dto/update-follower.dto';
+import { CurrentUser } from '../auth/decorators/current-user.decorator';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('followers')
 export class FollowersController {
   constructor(private readonly followersService: FollowersService) {}
 
-  @Post()
-  create(@Body() createFollowerDto: CreateFollowerDto) {
-    return this.followersService.create(createFollowerDto);
+  //Follow or unfollow a user
+  @UseGuards(AuthGuard('jwt'))
+  @Post('toggle/:userId')
+  async toggleFollow(
+    @CurrentUser() user: { userId: string },
+    @Param('userId') followedId: string,
+  ) {
+    console.log(user?.userId, 'Follower Id');
+    return this.followersService.toggleFollow(user?.userId, followedId);
   }
 
-  @Get()
-  findAll() {
-    return this.followersService.findAll();
+  // List of users who follow this user
+  @Get('list/followers/:userId')
+  getFollowers(@Param('userId') userId: string) {
+    return this.followersService.getFollowing(userId);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.followersService.findOne(+id);
+  //Count followers
+  @Get('count/followers/:userId')
+  countFollowers(@Param('userId') userId: string) {
+    return this.followersService.countFollowers(userId);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateFollowerDto: UpdateFollowerDto) {
-    return this.followersService.update(+id, updateFollowerDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.followersService.remove(+id);
+  //Count following
+  @Get('count/following/:userId')
+  countFollowings(@Param('userId') userId: string) {
+    return this.followersService.countFollowings(userId);
   }
 }

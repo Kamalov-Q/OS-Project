@@ -51,21 +51,32 @@ export class FollowersService {
   }
 
   // Get list of followers (people who follow THIS user)
-  // async 
-
-  findAll() {
-    return `This action returns all followers`;
+  async getFollowing(userId: string) {
+    return await this.prisma.follower.findMany({
+      where: { followerId: userId },
+      include: {
+        followed: true,
+      },
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} follower`;
+  //Count followers
+  async countFollowers(userId: string) {
+    const count = await this.prisma.follower.count({
+      where: {
+        followerId: userId,
+      },
+    });
+
+    return { userId, followers: count };
   }
 
-  update(id: number, updateFollowerDto: UpdateFollowerDto) {
-    return `This action updates a #${id} follower`;
-  }
+  // Count followings
+  async countFollowings(userId: string) {
+    const count = await this.prisma.follower.count({
+      where: { followedId: userId },
+    });
 
-  remove(id: number) {
-    return `This action removes a #${id} follower`;
+    return { userId, following: count };
   }
 }
