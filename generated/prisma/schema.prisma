@@ -8,6 +8,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum NotificationType {
+  NEW_POST
+  NEW_LIKE
+  NEW_FOLLOW
+  NEW_COMMENT
+}
+
 model User {
   id            String         @id @default(cuid())
   username      String         @unique
@@ -67,12 +74,13 @@ model Follower {
 }
 
 model Notification {
-  id         String   @id @default(cuid())
-  user       User     @relation(fields: [userId], references: [id])
+  id         String           @id @default(cuid())
+  user       User             @relation(fields: [userId], references: [id])
   userId     String
-  type       String
+  type       NotificationType
+  read       Boolean          @default(false)
   message    String
-  created_at DateTime @default(now())
+  created_at DateTime         @default(now())
 }
 
 model PostView {

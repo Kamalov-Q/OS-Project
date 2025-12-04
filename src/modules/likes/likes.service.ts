@@ -1,9 +1,13 @@
 import { Injectable } from '@nestjs/common';
+import { NotificationsService } from 'src/notifications/notifications.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class LikesService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    // private readonly notifications: NotificationsService,
+  ) {}
 
   async toggleLike(userId: string, postId: string) {
     const existing = await this.prisma.like.findUnique({

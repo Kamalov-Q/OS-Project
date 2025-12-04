@@ -3,7 +3,6 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { UpdateFollowerDto } from './dto/update-follower.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()

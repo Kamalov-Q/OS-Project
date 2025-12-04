@@ -163,6 +163,7 @@ exports.Prisma.NotificationScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   type: 'type',
+  read: 'read',
   message: 'message',
   created_at: 'created_at'
 };
@@ -188,7 +189,12 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
-
+exports.NotificationType = exports.$Enums.NotificationType = {
+  NEW_POST: 'NEW_POST',
+  NEW_LIKE: 'NEW_LIKE',
+  NEW_FOLLOW: 'NEW_FOLLOW',
+  NEW_COMMENT: 'NEW_COMMENT'
+};
 
 exports.Prisma.ModelName = {
   User: 'User',
