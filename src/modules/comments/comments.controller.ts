@@ -11,12 +11,14 @@ import {
   HttpStatus,
   ValidationPipe,
   Req,
+  Query,
 } from '@nestjs/common';
 import { CommentsService } from './comments.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { UpdateCommentDto } from './dto/update-comment.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { type RequestWithUser } from 'src/interfaces/request-with-user.interface';
+import { CommentQueryDto } from './dto/comment-query.dto';
 
 @Controller('comments')
 @UseGuards(AuthGuard('jwt'))
@@ -29,17 +31,17 @@ export class CommentsController {
     @Req() req: RequestWithUser,
     @Body(ValidationPipe) createCommentDto: CreateCommentDto,
   ) {
-    const userId = req.user?.userId;
-    if (!userId) {
-      throw new Error('User ID not found in request.');
-    }
+    const userId = req.user!.userId;
     return this.commentsService.create(userId, createCommentDto);
   }
 
   @Get()
-  findAll() {
-    return this.commentsService.findAll();
+  findAll(@Query(ValidationPipe) query: CommentQueryDto) {
+    return this.commentsService.findAll(query);
   }
+
+  @Get('post/:postId/count')
+  countByPost() {}
 
   @Get(':id')
   findOne(@Param('id') id: string) {

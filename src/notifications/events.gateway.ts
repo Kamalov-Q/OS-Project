@@ -1,6 +1,7 @@
 import {
   OnGatewayConnection,
   OnGatewayDisconnect,
+  SubscribeMessage,
   WebSocketGateway,
   WebSocketServer,
 } from '@nestjs/websockets';
@@ -104,5 +105,50 @@ export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
   //Like events
   emitNewLike(like: LikeWithRelations, post: PostWithRelations | null) {
     this.server.emit('like:created', { like, post });
+
+    //Notify post owner
+    if (post?.userId && like?.userId !== post?.userId) {
+      this.server.to(`user:${post?.userId}`).emit('notification', {
+        type: NotificationType?.NEW_LIKE,
+        message: `${like?.user?.username} liked your post`,
+        data: { like, post },
+      });
+    }
+  }
+
+  emitLikeRemove(postId: string, userId: string) {
+    this.server.emit('like:removed', { postId, userId });
+  }
+
+  //Follow events
+  emitNewFollow(follower: FollowerWithRelations) {
+    this.server.emit('follower:created', follower);
+
+    //Notify the followed user
+    if (follower?.followedId) {
+      this.server.to(`user:${follower?.followedId}`).emit('notification', {
+        type: NotificationType?.NEW_FOLLOW,
+        message: `${follower?.follower?.username} started following you`,
+        data: follower,
+      });
+    }
+  }
+
+  emitUnFollow(followerId: string, followedId: string) {
+    this.server.emit('follow:removed', { followedId, followerId });
+  }
+
+  //Typing indicator for comments
+  @SubscribeMessage('comment:typing')
+  handleTyping(client: Socket, payload: { postId: string; username: string }) {
+    client.broadcast.emit('comment:typing', payload);
+  }
+
+  @SubscribeMessage('comment:stop-typing')
+  handleStopTyping(
+    client: Socket,
+    payload: { postId: string; username: string },
+  ) {
+    client.broadcast.emit('comment:stop-typing', payload);
   }
 }
