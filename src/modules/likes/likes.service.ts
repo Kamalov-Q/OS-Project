@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { NotificationsService } from 'src/notifications/notifications.service';
+import { EventsGateway } from 'src/notifications/events.gateway';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class LikesService {
   constructor(
     private readonly prisma: PrismaService,
-    // private readonly notifications: NotificationsService,
+    private readonly eventsGateway: EventsGateway,
   ) {}
 
   async toggleLike(userId: string, postId: string) {
@@ -25,13 +25,27 @@ export class LikesService {
       return { liked: false };
     }
 
+    this.eventsGateway.emitLikeRemove(postId, userId);
+
     // Like
-    await this.prisma.like.create({
+    const like = await this.prisma.like.create({
       data: {
         userId,
         postId,
       },
+      include: {
+        user: true,
+      },
     });
+
+    const post = await this.prisma.post.findUnique({
+      where: { id: postId },
+      include: {
+        user: true,
+      },
+    });
+
+    this.eventsGateway.emitNewLike(like, post);
 
     return { liked: true };
   }
@@ -49,5 +63,15 @@ export class LikesService {
       where: { postId },
       include: { user: true },
     });
+  }
+
+  async checkLikers(userId: string, postId: string) {
+    const like = await this.prisma.like.findUnique({
+      where: {
+        postId_userId: { postId, userId },
+      },
+    });
+
+    return { liked: !!like };
   }
 }

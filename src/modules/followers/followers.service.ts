@@ -3,11 +3,15 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
+import { EventsGateway } from 'src/notifications/events.gateway';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class FollowersService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly eventsGateway: EventsGateway,
+  ) {}
 
   //Follow or unfollow
   async toggleFollow(followerId: string, followedId: string) {
@@ -35,16 +39,24 @@ export class FollowersService {
         where: { id: existing?.id },
       });
 
+      this.eventsGateway.emitUnFollow(followerId, followedId);
+
       return { following: false };
     }
 
     //Follow
-    await this.prisma.follower.create({
+    const follower = await this.prisma.follower.create({
       data: {
         followedId,
         followerId,
       },
+      include: {
+        follower: true,
+        followed: true,
+      },
     });
+
+    this.eventsGateway.emitNewFollow(follower);
 
     return { following: true };
   }
@@ -55,6 +67,15 @@ export class FollowersService {
       where: { followerId: userId },
       include: {
         followed: true,
+      },
+    });
+  }
+
+  async getFollowers(userId: string) {
+    return await this.prisma.follower.findMany({
+      where: { followedId: userId },
+      include: {
+        follower: true,
       },
     });
   }
@@ -77,5 +98,15 @@ export class FollowersService {
     });
 
     return { userId, following: count };
+  }
+
+  async checkFollowing(followerId: string, followedId: string) {
+    const following = await this.prisma.follower.findUnique({
+      where: {
+        followerId_followedId: { followerId, followedId },
+      },
+    });
+
+    return { following: !!following };
   }
 }

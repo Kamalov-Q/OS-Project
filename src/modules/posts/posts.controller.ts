@@ -7,6 +7,9 @@ import {
   Param,
   Delete,
   UseGuards,
+  HttpCode,
+  HttpStatus,
+  ValidationPipe,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { PostsService } from './posts.service';
@@ -20,8 +23,9 @@ export class PostsController {
 
   @Post()
   @UseGuards(AuthGuard('jwt'))
+  @HttpCode(HttpStatus.CREATED)
   create(
-    @Body() createPostDto: CreatePostDto,
+    @Body(ValidationPipe) createPostDto: CreatePostDto,
     @CurrentUser() user: { userId: string },
   ) {
     return this.postsService.create(user.userId as string, createPostDto);
@@ -32,18 +36,30 @@ export class PostsController {
     return this.postsService.findAll();
   }
 
+  @Get('user/:userId')
+  findByUser(@Param('userId') userId: string) {
+    return this.postsService.findByUser(userId);
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.postsService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePostDto: UpdatePostDto) {
-    return this.postsService.update(id, updatePostDto);
+  @UseGuards(AuthGuard('jwt'))
+  update(
+    @CurrentUser() user: { userId: string },
+    @Param('id') id: string,
+    @Body() updatePostDto: UpdatePostDto,
+  ) {
+    return this.postsService.update(id, user?.userId, updatePostDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.postsService.remove(id);
+  @UseGuards(AuthGuard('jwt'))
+  @HttpCode(HttpStatus.NO_CONTENT)
+  remove(@CurrentUser() user: { userId: string }, @Param('id') id: string) {
+    return this.postsService.remove(id, user.userId);
   }
 }

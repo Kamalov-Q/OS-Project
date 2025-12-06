@@ -101,7 +101,7 @@ export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
   emitCommentDeleted(commentId: string) {
     this.server.emit('comment:deleted', { commentId });
   }
-
+ 
   //Like events
   emitNewLike(like: LikeWithRelations, post: PostWithRelations | null) {
     this.server.emit('like:created', { like, post });

@@ -1,3 +1,4 @@
+import { Exclude } from 'class-transformer';
 import { IsString, IsOptional, MinLength } from 'class-validator';
 
 export class CreateUserDto {
@@ -12,6 +13,7 @@ export class CreateUserDto {
   @IsString()
   @MinLength(6)
   @IsOptional()
+  @Exclude()
   password: string;
 
   @IsString()

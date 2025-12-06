@@ -41,7 +41,14 @@ export class CommentsController {
   }
 
   @Get('post/:postId/count')
-  countByPost() {}
+  countByPost(@Param('postId') postId: string) {
+    return this.commentsService.countByPost(postId);
+  }
+
+  @Get('user/:userId')
+  findByUser(@Param('userId') userId: string) {
+    return this.commentsService.findByUser(userId);
+  }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
