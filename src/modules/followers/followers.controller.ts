@@ -17,7 +17,7 @@ export class FollowersController {
 
   //Follow or unfollow a user
   @UseGuards(AuthGuard('jwt'))
-  @Post('toggle/:followedId')
+  @Post('toggle/:followedId') 
   @HttpCode(HttpStatus.CREATED)
   async toggleFollow(
     @CurrentUser() user: { userId: string },

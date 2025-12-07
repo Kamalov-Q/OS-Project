@@ -5,3 +5,4 @@ export class CreateLikeDto {
   @IsNotEmpty()
   postId: string;
 }
+ 

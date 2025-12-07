@@ -8,3 +8,4 @@ import { PrismaService } from 'src/prisma/prisma.service';
   providers: [FollowersService, PrismaService],
 })
 export class FollowersModule {}
+ 

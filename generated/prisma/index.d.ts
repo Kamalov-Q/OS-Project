@@ -1528,6 +1528,7 @@ export namespace Prisma {
     password: string | null
     avatarUrl: string | null
     join_date: Date | null
+    created_at: Date | null
   }
 
   export type UserMaxAggregateOutputType = {
@@ -1537,6 +1538,7 @@ export namespace Prisma {
     password: string | null
     avatarUrl: string | null
     join_date: Date | null
+    created_at: Date | null
   }
 
   export type UserCountAggregateOutputType = {
@@ -1546,6 +1548,7 @@ export namespace Prisma {
     password: number
     avatarUrl: number
     join_date: number
+    created_at: number
     _all: number
   }
 
@@ -1557,6 +1560,7 @@ export namespace Prisma {
     password?: true
     avatarUrl?: true
     join_date?: true
+    created_at?: true
   }
 
   export type UserMaxAggregateInputType = {
@@ -1566,6 +1570,7 @@ export namespace Prisma {
     password?: true
     avatarUrl?: true
     join_date?: true
+    created_at?: true
   }
 
   export type UserCountAggregateInputType = {
@@ -1575,6 +1580,7 @@ export namespace Prisma {
     password?: true
     avatarUrl?: true
     join_date?: true
+    created_at?: true
     _all?: true
   }
 
@@ -1657,6 +1663,7 @@ export namespace Prisma {
     password: string
     avatarUrl: string | null
     join_date: Date
+    created_at: Date
     _count: UserCountAggregateOutputType | null
     _min: UserMinAggregateOutputType | null
     _max: UserMaxAggregateOutputType | null
@@ -1683,6 +1690,7 @@ export namespace Prisma {
     password?: boolean
     avatarUrl?: boolean
     join_date?: boolean
+    created_at?: boolean
     posts?: boolean | User$postsArgs<ExtArgs>
     comments?: boolean | User$commentsArgs<ExtArgs>
     likes?: boolean | User$likesArgs<ExtArgs>
@@ -1700,6 +1708,7 @@ export namespace Prisma {
     password?: boolean
     avatarUrl?: boolean
     join_date?: boolean
+    created_at?: boolean
   }, ExtArgs["result"]["user"]>
 
   export type UserSelectScalar = {
@@ -1709,6 +1718,7 @@ export namespace Prisma {
     password?: boolean
     avatarUrl?: boolean
     join_date?: boolean
+    created_at?: boolean
   }
 
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1741,6 +1751,7 @@ export namespace Prisma {
       password: string
       avatarUrl: string | null
       join_date: Date
+      created_at: Date
     }, ExtArgs["result"]["user"]>
     composites: {}
   }
@@ -2147,6 +2158,7 @@ export namespace Prisma {
     readonly password: FieldRef<"User", 'String'>
     readonly avatarUrl: FieldRef<"User", 'String'>
     readonly join_date: FieldRef<"User", 'DateTime'>
+    readonly created_at: FieldRef<"User", 'DateTime'>
   }
     
 
@@ -4575,18 +4587,21 @@ export namespace Prisma {
     id: string | null
     postId: string | null
     userId: string | null
+    created_at: Date | null
   }
 
   export type LikeMaxAggregateOutputType = {
     id: string | null
     postId: string | null
     userId: string | null
+    created_at: Date | null
   }
 
   export type LikeCountAggregateOutputType = {
     id: number
     postId: number
     userId: number
+    created_at: number
     _all: number
   }
 
@@ -4595,18 +4610,21 @@ export namespace Prisma {
     id?: true
     postId?: true
     userId?: true
+    created_at?: true
   }
 
   export type LikeMaxAggregateInputType = {
     id?: true
     postId?: true
     userId?: true
+    created_at?: true
   }
 
   export type LikeCountAggregateInputType = {
     id?: true
     postId?: true
     userId?: true
+    created_at?: true
     _all?: true
   }
 
@@ -4686,6 +4704,7 @@ export namespace Prisma {
     id: string
     postId: string
     userId: string
+    created_at: Date
     _count: LikeCountAggregateOutputType | null
     _min: LikeMinAggregateOutputType | null
     _max: LikeMaxAggregateOutputType | null
@@ -4709,6 +4728,7 @@ export namespace Prisma {
     id?: boolean
     postId?: boolean
     userId?: boolean
+    created_at?: boolean
     post?: boolean | PostDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["like"]>
@@ -4717,6 +4737,7 @@ export namespace Prisma {
     id?: boolean
     postId?: boolean
     userId?: boolean
+    created_at?: boolean
     post?: boolean | PostDefaultArgs<ExtArgs>
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["like"]>
@@ -4725,6 +4746,7 @@ export namespace Prisma {
     id?: boolean
     postId?: boolean
     userId?: boolean
+    created_at?: boolean
   }
 
   export type LikeInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -4746,6 +4768,7 @@ export namespace Prisma {
       id: string
       postId: string
       userId: string
+      created_at: Date
     }, ExtArgs["result"]["like"]>
     composites: {}
   }
@@ -5144,6 +5167,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Like", 'String'>
     readonly postId: FieldRef<"Like", 'String'>
     readonly userId: FieldRef<"Like", 'String'>
+    readonly created_at: FieldRef<"Like", 'DateTime'>
   }
     
 
@@ -5490,18 +5514,21 @@ export namespace Prisma {
     id: string | null
     followerId: string | null
     followedId: string | null
+    created_at: Date | null
   }
 
   export type FollowerMaxAggregateOutputType = {
     id: string | null
     followerId: string | null
     followedId: string | null
+    created_at: Date | null
   }
 
   export type FollowerCountAggregateOutputType = {
     id: number
     followerId: number
     followedId: number
+    created_at: number
     _all: number
   }
 
@@ -5510,18 +5537,21 @@ export namespace Prisma {
     id?: true
     followerId?: true
     followedId?: true
+    created_at?: true
   }
 
   export type FollowerMaxAggregateInputType = {
     id?: true
     followerId?: true
     followedId?: true
+    created_at?: true
   }
 
   export type FollowerCountAggregateInputType = {
     id?: true
     followerId?: true
     followedId?: true
+    created_at?: true
     _all?: true
   }
 
@@ -5601,6 +5631,7 @@ export namespace Prisma {
     id: string
     followerId: string
     followedId: string
+    created_at: Date
     _count: FollowerCountAggregateOutputType | null
     _min: FollowerMinAggregateOutputType | null
     _max: FollowerMaxAggregateOutputType | null
@@ -5624,6 +5655,7 @@ export namespace Prisma {
     id?: boolean
     followerId?: boolean
     followedId?: boolean
+    created_at?: boolean
     follower?: boolean | UserDefaultArgs<ExtArgs>
     followed?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["follower"]>
@@ -5632,6 +5664,7 @@ export namespace Prisma {
     id?: boolean
     followerId?: boolean
     followedId?: boolean
+    created_at?: boolean
     follower?: boolean | UserDefaultArgs<ExtArgs>
     followed?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["follower"]>
@@ -5640,6 +5673,7 @@ export namespace Prisma {
     id?: boolean
     followerId?: boolean
     followedId?: boolean
+    created_at?: boolean
   }
 
   export type FollowerInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -5661,6 +5695,7 @@ export namespace Prisma {
       id: string
       followerId: string
       followedId: string
+      created_at: Date
     }, ExtArgs["result"]["follower"]>
     composites: {}
   }
@@ -6059,6 +6094,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Follower", 'String'>
     readonly followerId: FieldRef<"Follower", 'String'>
     readonly followedId: FieldRef<"Follower", 'String'>
+    readonly created_at: FieldRef<"Follower", 'DateTime'>
   }
     
 
@@ -8283,7 +8319,8 @@ export namespace Prisma {
     pseudoname: 'pseudoname',
     password: 'password',
     avatarUrl: 'avatarUrl',
-    join_date: 'join_date'
+    join_date: 'join_date',
+    created_at: 'created_at'
   };
 
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -8314,7 +8351,8 @@ export namespace Prisma {
   export const LikeScalarFieldEnum: {
     id: 'id',
     postId: 'postId',
-    userId: 'userId'
+    userId: 'userId',
+    created_at: 'created_at'
   };
 
   export type LikeScalarFieldEnum = (typeof LikeScalarFieldEnum)[keyof typeof LikeScalarFieldEnum]
@@ -8323,7 +8361,8 @@ export namespace Prisma {
   export const FollowerScalarFieldEnum: {
     id: 'id',
     followerId: 'followerId',
-    followedId: 'followedId'
+    followedId: 'followedId',
+    created_at: 'created_at'
   };
 
   export type FollowerScalarFieldEnum = (typeof FollowerScalarFieldEnum)[keyof typeof FollowerScalarFieldEnum]
@@ -8456,6 +8495,7 @@ export namespace Prisma {
     password?: StringFilter<"User"> | string
     avatarUrl?: StringNullableFilter<"User"> | string | null
     join_date?: DateTimeFilter<"User"> | Date | string
+    created_at?: DateTimeFilter<"User"> | Date | string
     posts?: PostListRelationFilter
     comments?: CommentListRelationFilter
     likes?: LikeListRelationFilter
@@ -8472,6 +8512,7 @@ export namespace Prisma {
     password?: SortOrder
     avatarUrl?: SortOrderInput | SortOrder
     join_date?: SortOrder
+    created_at?: SortOrder
     posts?: PostOrderByRelationAggregateInput
     comments?: CommentOrderByRelationAggregateInput
     likes?: LikeOrderByRelationAggregateInput
@@ -8491,6 +8532,7 @@ export namespace Prisma {
     password?: StringFilter<"User"> | string
     avatarUrl?: StringNullableFilter<"User"> | string | null
     join_date?: DateTimeFilter<"User"> | Date | string
+    created_at?: DateTimeFilter<"User"> | Date | string
     posts?: PostListRelationFilter
     comments?: CommentListRelationFilter
     likes?: LikeListRelationFilter
@@ -8507,6 +8549,7 @@ export namespace Prisma {
     password?: SortOrder
     avatarUrl?: SortOrderInput | SortOrder
     join_date?: SortOrder
+    created_at?: SortOrder
     _count?: UserCountOrderByAggregateInput
     _max?: UserMaxOrderByAggregateInput
     _min?: UserMinOrderByAggregateInput
@@ -8522,6 +8565,7 @@ export namespace Prisma {
     password?: StringWithAggregatesFilter<"User"> | string
     avatarUrl?: StringNullableWithAggregatesFilter<"User"> | string | null
     join_date?: DateTimeWithAggregatesFilter<"User"> | Date | string
+    created_at?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
 
   export type PostWhereInput = {
@@ -8653,6 +8697,7 @@ export namespace Prisma {
     id?: StringFilter<"Like"> | string
     postId?: StringFilter<"Like"> | string
     userId?: StringFilter<"Like"> | string
+    created_at?: DateTimeFilter<"Like"> | Date | string
     post?: XOR<PostRelationFilter, PostWhereInput>
     user?: XOR<UserRelationFilter, UserWhereInput>
   }
@@ -8661,6 +8706,7 @@ export namespace Prisma {
     id?: SortOrder
     postId?: SortOrder
     userId?: SortOrder
+    created_at?: SortOrder
     post?: PostOrderByWithRelationInput
     user?: UserOrderByWithRelationInput
   }
@@ -8673,6 +8719,7 @@ export namespace Prisma {
     NOT?: LikeWhereInput | LikeWhereInput[]
     postId?: StringFilter<"Like"> | string
     userId?: StringFilter<"Like"> | string
+    created_at?: DateTimeFilter<"Like"> | Date | string
     post?: XOR<PostRelationFilter, PostWhereInput>
     user?: XOR<UserRelationFilter, UserWhereInput>
   }, "id" | "postId_userId">
@@ -8681,6 +8728,7 @@ export namespace Prisma {
     id?: SortOrder
     postId?: SortOrder
     userId?: SortOrder
+    created_at?: SortOrder
     _count?: LikeCountOrderByAggregateInput
     _max?: LikeMaxOrderByAggregateInput
     _min?: LikeMinOrderByAggregateInput
@@ -8693,6 +8741,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Like"> | string
     postId?: StringWithAggregatesFilter<"Like"> | string
     userId?: StringWithAggregatesFilter<"Like"> | string
+    created_at?: DateTimeWithAggregatesFilter<"Like"> | Date | string
   }
 
   export type FollowerWhereInput = {
@@ -8702,6 +8751,7 @@ export namespace Prisma {
     id?: StringFilter<"Follower"> | string
     followerId?: StringFilter<"Follower"> | string
     followedId?: StringFilter<"Follower"> | string
+    created_at?: DateTimeFilter<"Follower"> | Date | string
     follower?: XOR<UserRelationFilter, UserWhereInput>
     followed?: XOR<UserRelationFilter, UserWhereInput>
   }
@@ -8710,6 +8760,7 @@ export namespace Prisma {
     id?: SortOrder
     followerId?: SortOrder
     followedId?: SortOrder
+    created_at?: SortOrder
     follower?: UserOrderByWithRelationInput
     followed?: UserOrderByWithRelationInput
   }
@@ -8722,6 +8773,7 @@ export namespace Prisma {
     NOT?: FollowerWhereInput | FollowerWhereInput[]
     followerId?: StringFilter<"Follower"> | string
     followedId?: StringFilter<"Follower"> | string
+    created_at?: DateTimeFilter<"Follower"> | Date | string
     follower?: XOR<UserRelationFilter, UserWhereInput>
     followed?: XOR<UserRelationFilter, UserWhereInput>
   }, "id" | "followerId_followedId">
@@ -8730,6 +8782,7 @@ export namespace Prisma {
     id?: SortOrder
     followerId?: SortOrder
     followedId?: SortOrder
+    created_at?: SortOrder
     _count?: FollowerCountOrderByAggregateInput
     _max?: FollowerMaxOrderByAggregateInput
     _min?: FollowerMinOrderByAggregateInput
@@ -8742,6 +8795,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Follower"> | string
     followerId?: StringWithAggregatesFilter<"Follower"> | string
     followedId?: StringWithAggregatesFilter<"Follower"> | string
+    created_at?: DateTimeWithAggregatesFilter<"Follower"> | Date | string
   }
 
   export type NotificationWhereInput = {
@@ -8865,6 +8919,7 @@ export namespace Prisma {
     password: string
     avatarUrl?: string | null
     join_date?: Date | string
+    created_at?: Date | string
     posts?: PostCreateNestedManyWithoutUserInput
     comments?: CommentCreateNestedManyWithoutUserInput
     likes?: LikeCreateNestedManyWithoutUserInput
@@ -8881,6 +8936,7 @@ export namespace Prisma {
     password: string
     avatarUrl?: string | null
     join_date?: Date | string
+    created_at?: Date | string
     posts?: PostUncheckedCreateNestedManyWithoutUserInput
     comments?: CommentUncheckedCreateNestedManyWithoutUserInput
     likes?: LikeUncheckedCreateNestedManyWithoutUserInput
@@ -8897,6 +8953,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     join_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     posts?: PostUpdateManyWithoutUserNestedInput
     comments?: CommentUpdateManyWithoutUserNestedInput
     likes?: LikeUpdateManyWithoutUserNestedInput
@@ -8913,6 +8970,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     join_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     posts?: PostUncheckedUpdateManyWithoutUserNestedInput
     comments?: CommentUncheckedUpdateManyWithoutUserNestedInput
     likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
@@ -8929,6 +8987,7 @@ export namespace Prisma {
     password: string
     avatarUrl?: string | null
     join_date?: Date | string
+    created_at?: Date | string
   }
 
   export type UserUpdateManyMutationInput = {
@@ -8938,6 +8997,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     join_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type UserUncheckedUpdateManyInput = {
@@ -8947,6 +9007,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     join_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PostCreateInput = {
@@ -9072,6 +9133,7 @@ export namespace Prisma {
 
   export type LikeCreateInput = {
     id?: string
+    created_at?: Date | string
     post: PostCreateNestedOneWithoutLikesInput
     user: UserCreateNestedOneWithoutLikesInput
   }
@@ -9080,10 +9142,12 @@ export namespace Prisma {
     id?: string
     postId: string
     userId: string
+    created_at?: Date | string
   }
 
   export type LikeUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     post?: PostUpdateOneRequiredWithoutLikesNestedInput
     user?: UserUpdateOneRequiredWithoutLikesNestedInput
   }
@@ -9092,26 +9156,31 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     postId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type LikeCreateManyInput = {
     id?: string
     postId: string
     userId: string
+    created_at?: Date | string
   }
 
   export type LikeUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type LikeUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     postId?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type FollowerCreateInput = {
     id?: string
+    created_at?: Date | string
     follower: UserCreateNestedOneWithoutFollowingInput
     followed: UserCreateNestedOneWithoutFollowersInput
   }
@@ -9120,10 +9189,12 @@ export namespace Prisma {
     id?: string
     followerId: string
     followedId: string
+    created_at?: Date | string
   }
 
   export type FollowerUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     follower?: UserUpdateOneRequiredWithoutFollowingNestedInput
     followed?: UserUpdateOneRequiredWithoutFollowersNestedInput
   }
@@ -9132,22 +9203,26 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     followerId?: StringFieldUpdateOperationsInput | string
     followedId?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type FollowerCreateManyInput = {
     id?: string
     followerId: string
     followedId: string
+    created_at?: Date | string
   }
 
   export type FollowerUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type FollowerUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     followerId?: StringFieldUpdateOperationsInput | string
     followedId?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type NotificationCreateInput = {
@@ -9372,6 +9447,7 @@ export namespace Prisma {
     password?: SortOrder
     avatarUrl?: SortOrder
     join_date?: SortOrder
+    created_at?: SortOrder
   }
 
   export type UserMaxOrderByAggregateInput = {
@@ -9381,6 +9457,7 @@ export namespace Prisma {
     password?: SortOrder
     avatarUrl?: SortOrder
     join_date?: SortOrder
+    created_at?: SortOrder
   }
 
   export type UserMinOrderByAggregateInput = {
@@ -9390,6 +9467,7 @@ export namespace Prisma {
     password?: SortOrder
     avatarUrl?: SortOrder
     join_date?: SortOrder
+    created_at?: SortOrder
   }
 
   export type StringWithAggregatesFilter<$PrismaModel = never> = {
@@ -9509,18 +9587,21 @@ export namespace Prisma {
     id?: SortOrder
     postId?: SortOrder
     userId?: SortOrder
+    created_at?: SortOrder
   }
 
   export type LikeMaxOrderByAggregateInput = {
     id?: SortOrder
     postId?: SortOrder
     userId?: SortOrder
+    created_at?: SortOrder
   }
 
   export type LikeMinOrderByAggregateInput = {
     id?: SortOrder
     postId?: SortOrder
     userId?: SortOrder
+    created_at?: SortOrder
   }
 
   export type FollowerFollowerIdFollowedIdCompoundUniqueInput = {
@@ -9532,18 +9613,21 @@ export namespace Prisma {
     id?: SortOrder
     followerId?: SortOrder
     followedId?: SortOrder
+    created_at?: SortOrder
   }
 
   export type FollowerMaxOrderByAggregateInput = {
     id?: SortOrder
     followerId?: SortOrder
     followedId?: SortOrder
+    created_at?: SortOrder
   }
 
   export type FollowerMinOrderByAggregateInput = {
     id?: SortOrder
     followerId?: SortOrder
     followedId?: SortOrder
+    created_at?: SortOrder
   }
 
   export type EnumNotificationTypeFilter<$PrismaModel = never> = {
@@ -10404,12 +10488,14 @@ export namespace Prisma {
 
   export type LikeCreateWithoutUserInput = {
     id?: string
+    created_at?: Date | string
     post: PostCreateNestedOneWithoutLikesInput
   }
 
   export type LikeUncheckedCreateWithoutUserInput = {
     id?: string
     postId: string
+    created_at?: Date | string
   }
 
   export type LikeCreateOrConnectWithoutUserInput = {
@@ -10450,12 +10536,14 @@ export namespace Prisma {
 
   export type FollowerCreateWithoutFollowedInput = {
     id?: string
+    created_at?: Date | string
     follower: UserCreateNestedOneWithoutFollowingInput
   }
 
   export type FollowerUncheckedCreateWithoutFollowedInput = {
     id?: string
     followerId: string
+    created_at?: Date | string
   }
 
   export type FollowerCreateOrConnectWithoutFollowedInput = {
@@ -10470,12 +10558,14 @@ export namespace Prisma {
 
   export type FollowerCreateWithoutFollowerInput = {
     id?: string
+    created_at?: Date | string
     followed: UserCreateNestedOneWithoutFollowersInput
   }
 
   export type FollowerUncheckedCreateWithoutFollowerInput = {
     id?: string
     followedId: string
+    created_at?: Date | string
   }
 
   export type FollowerCreateOrConnectWithoutFollowerInput = {
@@ -10587,6 +10677,7 @@ export namespace Prisma {
     id?: StringFilter<"Like"> | string
     postId?: StringFilter<"Like"> | string
     userId?: StringFilter<"Like"> | string
+    created_at?: DateTimeFilter<"Like"> | Date | string
   }
 
   export type NotificationUpsertWithWhereUniqueWithoutUserInput = {
@@ -10640,6 +10731,7 @@ export namespace Prisma {
     id?: StringFilter<"Follower"> | string
     followerId?: StringFilter<"Follower"> | string
     followedId?: StringFilter<"Follower"> | string
+    created_at?: DateTimeFilter<"Follower"> | Date | string
   }
 
   export type FollowerUpsertWithWhereUniqueWithoutFollowerInput = {
@@ -10691,6 +10783,7 @@ export namespace Prisma {
     password: string
     avatarUrl?: string | null
     join_date?: Date | string
+    created_at?: Date | string
     comments?: CommentCreateNestedManyWithoutUserInput
     likes?: LikeCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
@@ -10706,6 +10799,7 @@ export namespace Prisma {
     password: string
     avatarUrl?: string | null
     join_date?: Date | string
+    created_at?: Date | string
     comments?: CommentUncheckedCreateNestedManyWithoutUserInput
     likes?: LikeUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
@@ -10745,12 +10839,14 @@ export namespace Prisma {
 
   export type LikeCreateWithoutPostInput = {
     id?: string
+    created_at?: Date | string
     user: UserCreateNestedOneWithoutLikesInput
   }
 
   export type LikeUncheckedCreateWithoutPostInput = {
     id?: string
     userId: string
+    created_at?: Date | string
   }
 
   export type LikeCreateOrConnectWithoutPostInput = {
@@ -10803,6 +10899,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     join_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     comments?: CommentUpdateManyWithoutUserNestedInput
     likes?: LikeUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
@@ -10818,6 +10915,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     join_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     comments?: CommentUncheckedUpdateManyWithoutUserNestedInput
     likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
@@ -10906,6 +11004,7 @@ export namespace Prisma {
     password: string
     avatarUrl?: string | null
     join_date?: Date | string
+    created_at?: Date | string
     posts?: PostCreateNestedManyWithoutUserInput
     likes?: LikeCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
@@ -10921,6 +11020,7 @@ export namespace Prisma {
     password: string
     avatarUrl?: string | null
     join_date?: Date | string
+    created_at?: Date | string
     posts?: PostUncheckedCreateNestedManyWithoutUserInput
     likes?: LikeUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
@@ -10983,6 +11083,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     join_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     posts?: PostUpdateManyWithoutUserNestedInput
     likes?: LikeUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
@@ -10998,6 +11099,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     join_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     posts?: PostUncheckedUpdateManyWithoutUserNestedInput
     likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
@@ -11038,6 +11140,7 @@ export namespace Prisma {
     password: string
     avatarUrl?: string | null
     join_date?: Date | string
+    created_at?: Date | string
     posts?: PostCreateNestedManyWithoutUserInput
     comments?: CommentCreateNestedManyWithoutUserInput
     notifications?: NotificationCreateNestedManyWithoutUserInput
@@ -11053,6 +11156,7 @@ export namespace Prisma {
     password: string
     avatarUrl?: string | null
     join_date?: Date | string
+    created_at?: Date | string
     posts?: PostUncheckedCreateNestedManyWithoutUserInput
     comments?: CommentUncheckedCreateNestedManyWithoutUserInput
     notifications?: NotificationUncheckedCreateNestedManyWithoutUserInput
@@ -11115,6 +11219,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     join_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     posts?: PostUpdateManyWithoutUserNestedInput
     comments?: CommentUpdateManyWithoutUserNestedInput
     notifications?: NotificationUpdateManyWithoutUserNestedInput
@@ -11130,6 +11235,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     join_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     posts?: PostUncheckedUpdateManyWithoutUserNestedInput
     comments?: CommentUncheckedUpdateManyWithoutUserNestedInput
     notifications?: NotificationUncheckedUpdateManyWithoutUserNestedInput
@@ -11145,6 +11251,7 @@ export namespace Prisma {
     password: string
     avatarUrl?: string | null
     join_date?: Date | string
+    created_at?: Date | string
     posts?: PostCreateNestedManyWithoutUserInput
     comments?: CommentCreateNestedManyWithoutUserInput
     likes?: LikeCreateNestedManyWithoutUserInput
@@ -11160,6 +11267,7 @@ export namespace Prisma {
     password: string
     avatarUrl?: string | null
     join_date?: Date | string
+    created_at?: Date | string
     posts?: PostUncheckedCreateNestedManyWithoutUserInput
     comments?: CommentUncheckedCreateNestedManyWithoutUserInput
     likes?: LikeUncheckedCreateNestedManyWithoutUserInput
@@ -11180,6 +11288,7 @@ export namespace Prisma {
     password: string
     avatarUrl?: string | null
     join_date?: Date | string
+    created_at?: Date | string
     posts?: PostCreateNestedManyWithoutUserInput
     comments?: CommentCreateNestedManyWithoutUserInput
     likes?: LikeCreateNestedManyWithoutUserInput
@@ -11195,6 +11304,7 @@ export namespace Prisma {
     password: string
     avatarUrl?: string | null
     join_date?: Date | string
+    created_at?: Date | string
     posts?: PostUncheckedCreateNestedManyWithoutUserInput
     comments?: CommentUncheckedCreateNestedManyWithoutUserInput
     likes?: LikeUncheckedCreateNestedManyWithoutUserInput
@@ -11226,6 +11336,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     join_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     posts?: PostUpdateManyWithoutUserNestedInput
     comments?: CommentUpdateManyWithoutUserNestedInput
     likes?: LikeUpdateManyWithoutUserNestedInput
@@ -11241,6 +11352,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     join_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     posts?: PostUncheckedUpdateManyWithoutUserNestedInput
     comments?: CommentUncheckedUpdateManyWithoutUserNestedInput
     likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
@@ -11267,6 +11379,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     join_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     posts?: PostUpdateManyWithoutUserNestedInput
     comments?: CommentUpdateManyWithoutUserNestedInput
     likes?: LikeUpdateManyWithoutUserNestedInput
@@ -11282,6 +11395,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     join_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     posts?: PostUncheckedUpdateManyWithoutUserNestedInput
     comments?: CommentUncheckedUpdateManyWithoutUserNestedInput
     likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
@@ -11297,6 +11411,7 @@ export namespace Prisma {
     password: string
     avatarUrl?: string | null
     join_date?: Date | string
+    created_at?: Date | string
     posts?: PostCreateNestedManyWithoutUserInput
     comments?: CommentCreateNestedManyWithoutUserInput
     likes?: LikeCreateNestedManyWithoutUserInput
@@ -11312,6 +11427,7 @@ export namespace Prisma {
     password: string
     avatarUrl?: string | null
     join_date?: Date | string
+    created_at?: Date | string
     posts?: PostUncheckedCreateNestedManyWithoutUserInput
     comments?: CommentUncheckedCreateNestedManyWithoutUserInput
     likes?: LikeUncheckedCreateNestedManyWithoutUserInput
@@ -11343,6 +11459,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     join_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     posts?: PostUpdateManyWithoutUserNestedInput
     comments?: CommentUpdateManyWithoutUserNestedInput
     likes?: LikeUpdateManyWithoutUserNestedInput
@@ -11358,6 +11475,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     join_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     posts?: PostUncheckedUpdateManyWithoutUserNestedInput
     comments?: CommentUncheckedUpdateManyWithoutUserNestedInput
     likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
@@ -11398,6 +11516,7 @@ export namespace Prisma {
     password: string
     avatarUrl?: string | null
     join_date?: Date | string
+    created_at?: Date | string
     posts?: PostCreateNestedManyWithoutUserInput
     comments?: CommentCreateNestedManyWithoutUserInput
     likes?: LikeCreateNestedManyWithoutUserInput
@@ -11413,6 +11532,7 @@ export namespace Prisma {
     password: string
     avatarUrl?: string | null
     join_date?: Date | string
+    created_at?: Date | string
     posts?: PostUncheckedCreateNestedManyWithoutUserInput
     comments?: CommentUncheckedCreateNestedManyWithoutUserInput
     likes?: LikeUncheckedCreateNestedManyWithoutUserInput
@@ -11475,6 +11595,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     join_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     posts?: PostUpdateManyWithoutUserNestedInput
     comments?: CommentUpdateManyWithoutUserNestedInput
     likes?: LikeUpdateManyWithoutUserNestedInput
@@ -11490,6 +11611,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
     join_date?: DateTimeFieldUpdateOperationsInput | Date | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     posts?: PostUncheckedUpdateManyWithoutUserNestedInput
     comments?: CommentUncheckedUpdateManyWithoutUserNestedInput
     likes?: LikeUncheckedUpdateManyWithoutUserNestedInput
@@ -11515,6 +11637,7 @@ export namespace Prisma {
   export type LikeCreateManyUserInput = {
     id?: string
     postId: string
+    created_at?: Date | string
   }
 
   export type NotificationCreateManyUserInput = {
@@ -11528,11 +11651,13 @@ export namespace Prisma {
   export type FollowerCreateManyFollowedInput = {
     id?: string
     followerId: string
+    created_at?: Date | string
   }
 
   export type FollowerCreateManyFollowerInput = {
     id?: string
     followedId: string
+    created_at?: Date | string
   }
 
   export type PostViewCreateManyUserInput = {
@@ -11591,17 +11716,20 @@ export namespace Prisma {
 
   export type LikeUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     post?: PostUpdateOneRequiredWithoutLikesNestedInput
   }
 
   export type LikeUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     postId?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type LikeUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     postId?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type NotificationUpdateWithoutUserInput = {
@@ -11630,32 +11758,38 @@ export namespace Prisma {
 
   export type FollowerUpdateWithoutFollowedInput = {
     id?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     follower?: UserUpdateOneRequiredWithoutFollowingNestedInput
   }
 
   export type FollowerUncheckedUpdateWithoutFollowedInput = {
     id?: StringFieldUpdateOperationsInput | string
     followerId?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type FollowerUncheckedUpdateManyWithoutFollowedInput = {
     id?: StringFieldUpdateOperationsInput | string
     followerId?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type FollowerUpdateWithoutFollowerInput = {
     id?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     followed?: UserUpdateOneRequiredWithoutFollowersNestedInput
   }
 
   export type FollowerUncheckedUpdateWithoutFollowerInput = {
     id?: StringFieldUpdateOperationsInput | string
     followedId?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type FollowerUncheckedUpdateManyWithoutFollowerInput = {
     id?: StringFieldUpdateOperationsInput | string
     followedId?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PostViewUpdateWithoutUserInput = {
@@ -11686,6 +11820,7 @@ export namespace Prisma {
   export type LikeCreateManyPostInput = {
     id?: string
     userId: string
+    created_at?: Date | string
   }
 
   export type PostViewCreateManyPostInput = {
@@ -11717,17 +11852,20 @@ export namespace Prisma {
 
   export type LikeUpdateWithoutPostInput = {
     id?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutLikesNestedInput
   }
 
   export type LikeUncheckedUpdateWithoutPostInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type LikeUncheckedUpdateManyWithoutPostInput = {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type PostViewUpdateWithoutPostInput = {

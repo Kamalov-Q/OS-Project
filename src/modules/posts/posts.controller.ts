@@ -29,7 +29,7 @@ export class PostsController {
     @CurrentUser() user: { userId: string },
   ) {
     return this.postsService.create(user.userId as string, createPostDto);
-  }
+  } 
 
   @Get()
   findAll() {

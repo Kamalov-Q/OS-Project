@@ -20,7 +20,7 @@ export class AuthService {
       pseudoname,
       password: hashedPassword,
     });
-
+ 
     return {
       id: user.id,
       username: user.username,

@@ -128,7 +128,8 @@ exports.Prisma.UserScalarFieldEnum = {
   pseudoname: 'pseudoname',
   password: 'password',
   avatarUrl: 'avatarUrl',
-  join_date: 'join_date'
+  join_date: 'join_date',
+  created_at: 'created_at'
 };
 
 exports.Prisma.PostScalarFieldEnum = {
@@ -150,13 +151,15 @@ exports.Prisma.CommentScalarFieldEnum = {
 exports.Prisma.LikeScalarFieldEnum = {
   id: 'id',
   postId: 'postId',
-  userId: 'userId'
+  userId: 'userId',
+  created_at: 'created_at'
 };
 
 exports.Prisma.FollowerScalarFieldEnum = {
   id: 'id',
   followerId: 'followerId',
-  followedId: 'followedId'
+  followedId: 'followedId',
+  created_at: 'created_at'
 };
 
 exports.Prisma.NotificationScalarFieldEnum = {

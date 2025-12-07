@@ -114,7 +114,7 @@ export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
         data: { like, post },
       });
     }
-  }
+  } 
 
   emitLikeRemove(postId: string, userId: string) {
     this.server.emit('like:removed', { postId, userId });

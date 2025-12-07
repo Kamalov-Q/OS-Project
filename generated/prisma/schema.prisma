@@ -29,6 +29,7 @@ model User {
   followers     Follower[]     @relation("followed")
   following     Follower[]     @relation("follower")
   views         PostView[]
+  created_at    DateTime       @default(now())
 }
 
 model Post {
@@ -54,21 +55,23 @@ model Comment {
 }
 
 model Like {
-  id     String @id @default(cuid())
-  post   Post   @relation(fields: [postId], references: [id])
-  postId String
-  user   User   @relation(fields: [userId], references: [id])
-  userId String
+  id         String   @id @default(cuid())
+  post       Post     @relation(fields: [postId], references: [id])
+  postId     String
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String
+  created_at DateTime @default(now())
 
   @@unique([postId, userId])
 }
 
 model Follower {
-  id         String @id @default(cuid())
-  follower   User   @relation("follower", fields: [followerId], references: [id])
+  id         String   @id @default(cuid())
+  follower   User     @relation("follower", fields: [followerId], references: [id])
   followerId String
-  followed   User   @relation("followed", fields: [followedId], references: [id])
+  followed   User     @relation("followed", fields: [followedId], references: [id])
   followedId String
+  created_at DateTime @default(now())
 
   @@unique([followerId, followedId])
 }

@@ -4,7 +4,7 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { CreateUserDto, UpdateUserDto } from './dto/user.dto';
+import { CreateUserDto, UpdateUserDto, UserQueryDto } from './dto/user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
 
@@ -77,19 +77,55 @@ export class UsersService {
     return user;
   }
 
-  async findAll() {
-    return this.prisma.user.findMany({
-      select: {
-        id: true,
-        username: true,
-        pseudoname: true,
-        avatarUrl: true,
-        join_date: true,
-        _count: {
-          select: { posts: true, followers: true, following: true },
+  async findAll(query: UserQueryDto) {
+    const { username, pseudoname, limit = 20, offset = 0 } = query;
+
+    const where: any = {};
+
+    if (username) {
+      where.username = {
+        contains: username,
+        mode: 'insensitive',
+      };
+    }
+
+    if (pseudoname) {
+      where.pseudoname = {
+        contains: pseudoname,
+        mode: 'insensitive',
+      };
+    }
+
+    const [users, total] = await Promise.all([
+      this.prisma.user.findMany({
+        select: {
+          id: true,
+          username: true,
+          pseudoname: true,
+          avatarUrl: true,
+          join_date: true,
+          _count: {
+            select: { posts: true, followers: true, following: true },
+          },
         },
-      },
-    });
+        orderBy: { created_at: 'desc' },
+        take: limit,
+        skip: offset,
+      }),
+      this.prisma.user.count({ where }),
+    ]);
+
+    const totalPages = Math.ceil(total / limit);
+    const currentPage = Math.ceil(offset / limit) + 1;
+
+    return {
+      users,
+      total,
+      limit,
+      offset,
+      totalPages,
+      currentPage,
+    };
   }
 
   async update(id: string, updateUserDto: UpdateUserDto, userId: string) {

@@ -26,7 +26,7 @@ export class LikesService {
     }
 
     this.eventsGateway.emitLikeRemove(postId, userId);
-
+ 
     // Like
     const like = await this.prisma.like.create({
       data: {

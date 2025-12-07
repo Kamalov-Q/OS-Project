@@ -18,7 +18,7 @@ export class FollowersService {
     if (followerId === followedId) {
       throw new ForbiddenException('You cannot follow yourself');
     }
-
+ 
     //Check if the followed user exists
     const user = await this.prisma.user.findUnique({
       where: { id: followedId },

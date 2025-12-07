@@ -37,7 +37,7 @@ export class PostsService {
           },
         },
       },
-    });
+    }); 
 
     this.eventsGateway.emitNewPost(post);
   }
