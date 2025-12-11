@@ -7,6 +7,8 @@ import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { EventsGateway } from 'src/notifications/events.gateway';
+import { PostQueryDto } from './dto/query-post.dto';
+import { Prisma } from 'generated/prisma';
 
 @Injectable()
 export class PostsService {
@@ -37,33 +39,58 @@ export class PostsService {
           },
         },
       },
-    }); 
+    });
 
     this.eventsGateway.emitNewPost(post);
+    return post;
   }
 
-  findAll() {
-    return this.prisma.post.findMany({
-      orderBy: {
-        created_at: 'desc',
-      },
-      include: {
-        user: true,
-        comments: true,
-        likes: {
-          include: {
-            user: true,
+  async findAll(query: PostQueryDto) {
+    const { search, limit, offset } = query;
+
+    const where: Prisma.PostWhereInput = {};
+
+    if (search && search?.trim() !== '') {
+      where.OR = [
+        {
+          content: { contains: search, mode: 'insensitive' },
+        },
+        {
+          user: { is: { username: { contains: search, mode: 'insensitive' } } },
+        },
+        {
+          user: {
+            is: { pseudoname: { contains: search, mode: 'insensitive' } },
           },
         },
-        _count: {
-          select: {
-            comments: true,
-            likes: true,
-            views: true,
-          },
+      ];
+    }
+
+    const [data, total] = await this.prisma.$transaction([
+      this.prisma.post.findMany({
+        where,
+        skip: offset,
+        take: limit,
+        orderBy: { created_at: 'desc' },
+        include: {
+          user: true,
+          comments: true,
+          likes: { include: { user: true } },
+          _count: { select: { comments: true, likes: true, views: true } },
         },
+      }),
+
+      this.prisma.post.count({ where }),
+    ]);
+
+    return {
+      data,
+      meta: {
+        total,
+        limit,
+        offset,
       },
-    });
+    };
   }
 
   async findOne(id: string) {

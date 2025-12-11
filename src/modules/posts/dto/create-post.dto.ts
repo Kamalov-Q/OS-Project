@@ -15,6 +15,6 @@ export class CreatePostDto {
     description: 'Image for a post',
   })
   @IsString()
-  @IsOptional()
+  @IsOptional() 
   imageUrl?: string;
 }
