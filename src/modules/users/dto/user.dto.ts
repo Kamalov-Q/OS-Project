@@ -40,7 +40,7 @@ export class CreateUserDto {
 }
 
 export class UpdateUserDto {
-  @ApiProperty({
+  @ApiPropertyOptional({
     example: 'john_doe',
     description: 'Unique username for the user',
     minLength: 3,

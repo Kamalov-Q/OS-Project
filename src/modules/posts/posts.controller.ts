@@ -3,7 +3,6 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
   UseGuards,
@@ -11,6 +10,7 @@ import {
   HttpStatus,
   ValidationPipe,
   Query,
+  Put,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { PostsService } from './posts.service';
@@ -56,7 +56,7 @@ export class PostsController {
     return this.postsService.findOne(id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   @UseGuards(AuthGuard('jwt'))
   @ApiBearerAuth()
   @ApiOperation({ summary: 'Update a post' })

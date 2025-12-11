@@ -64,11 +64,13 @@ export class UsersService {
     const user = await this.prisma.user.findFirst({
       where: {
         username: {
-          equals: username,
+          contains: username,
           mode: 'insensitive',
         },
       },
     });
+
+    console.log(user, username, 'User coming from query');
 
     if (!user) {
       throw new NotFoundException('User not found');

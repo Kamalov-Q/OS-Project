@@ -3,7 +3,6 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
   UseGuards,
@@ -12,6 +11,7 @@ import {
   ValidationPipe,
   Req,
   Query,
+  Put,
 } from '@nestjs/common';
 import { CommentsService } from './comments.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
@@ -30,7 +30,6 @@ import {
   ApiOperation,
   ApiParam,
   ApiQuery,
-  ApiResponse,
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
@@ -89,7 +88,7 @@ export class CommentsController {
     return this.commentsService.findOne(id);
   }
 
-  @Patch(':id')
+  @Put(':id')
   @ApiOperation({ summary: 'Update a comment (only author can update)' })
   @ApiParam({ name: 'id', description: 'Comment ID' })
   @ApiOkResponse({ description: 'Comment updated successfully' })
