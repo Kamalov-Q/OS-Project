@@ -50,7 +50,7 @@ export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
     console.log(`Client connected: ${client?.id}`);
 
     const userId = client?.handshake.query.userId as string;
-    if (!userId) {
+    if (userId) {
       this.connectedUsers.set(userId, client?.id);
       client.join(`user:${userId}`);
     }
@@ -101,7 +101,7 @@ export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
   emitCommentDeleted(commentId: string) {
     this.server.emit('comment:deleted', { commentId });
   }
- 
+
   //Like events
   emitNewLike(like: LikeWithRelations, post: PostWithRelations | null) {
     this.server.emit('like:created', { like, post });
@@ -114,7 +114,7 @@ export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
         data: { like, post },
       });
     }
-  } 
+  }
 
   emitLikeRemove(postId: string, userId: string) {
     this.server.emit('like:removed', { postId, userId });
