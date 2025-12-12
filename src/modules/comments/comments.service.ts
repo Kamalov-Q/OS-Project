@@ -18,7 +18,7 @@ export class CommentsService {
   async create(userId: string, createCommentDto: CreateCommentDto) {
     const { postId, content } = createCommentDto;
 
-    const post = await this.prisma.comment.findUnique({
+    const post = await this.prisma.post.findUnique({
       where: { id: postId },
       include: {
         user: {
@@ -66,11 +66,10 @@ export class CommentsService {
       },
     });
 
-    // Properly await the comment creation and emit event with the resolved data
-
-    //Should be fixed
     const createdComment = comment;
     this.eventsGateway.emitNewComment(createdComment);
+
+    return comment;
   }
 
   async findAll(query: CommentQueryDto) {

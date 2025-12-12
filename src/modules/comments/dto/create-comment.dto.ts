@@ -7,8 +7,8 @@ export class CreateCommentDto {
     example: '42',
     description: 'ID of the post to comment on',
   })
-  @Type(() => Number)
-  @IsNumber()
+  @Type(() => String)
+  @IsString()
   @IsNotEmpty({ message: 'Post ID is required' })
   postId: string;
 
