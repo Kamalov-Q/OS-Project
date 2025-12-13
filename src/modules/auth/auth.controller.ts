@@ -20,7 +20,7 @@ export class AuthController {
   @ApiCreatedResponse({
     description: 'User registered successfully',
     schema: {
-      example: {
+      example: { 
         id: 1,
         username: 'Eshmat Toshmatov',
         pseudoname: 'Qizlarni ajali',
