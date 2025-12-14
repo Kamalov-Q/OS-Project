@@ -3,9 +3,7 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
-  Delete,
   UseGuards,
   HttpCode,
   HttpStatus,
@@ -13,7 +11,6 @@ import {
 } from '@nestjs/common';
 import { ViewsService } from './views.service';
 import { CreateViewDto } from './dto/create-view.dto';
-import { UpdateViewDto } from './dto/update-view.dto';
 import {
   ApiBearerAuth,
   ApiCreatedResponse,
@@ -38,9 +35,8 @@ export class ViewsController {
     description: 'View added or ignored if already viewed',
   })
   create(@Req() req: RequestWithUser, @Body() createViewDto: CreateViewDto) {
-    const userId = req.user?.userId as string;
-    const { postId } = createViewDto;
-    return this.viewsService.create(userId, postId);
+    const userId = req.user!.userId;
+    return this.viewsService.create(userId, createViewDto.postId);
   }
 
   @Get('post/:postId/count')
@@ -53,7 +49,16 @@ export class ViewsController {
   @Get('post/:postId/users')
   @ApiOperation({ summary: 'Get users who viewed a post' })
   @ApiOkResponse()
-  findUsers(@Req() user: { userId: string }, @Param('postId') postId: string) {
-    return this.viewsService.userViewedPost(user.userId, postId);
+  listViewers(@Req() req: RequestWithUser, @Param('postId') postId: string) {
+    const viewerId = req.user!.userId;
+    return this.viewsService.listViewers(viewerId, postId);
+  }
+
+  @Get('check/:postId')
+  @ApiOperation({ summary: 'Check if current user viewed a post' })
+  @ApiOkResponse()
+  check(@Req() req: RequestWithUser, @Param('postId') postId: string) {
+    const viewerId = req.user!.userId;
+    return this.viewsService.userViewedPost(viewerId, postId);
   }
 }

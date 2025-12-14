@@ -13,7 +13,6 @@ import {
 import { UsersService } from './users.service';
 import { AuthGuard } from '@nestjs/passport';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
-import { CreateUserDto, UpdateUserDto, UserQueryDto } from './dto/user.dto';
 
 import {
   ApiTags,
@@ -25,6 +24,9 @@ import {
   ApiUnauthorizedResponse,
   ApiNotFoundResponse,
 } from '@nestjs/swagger';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UserQueryDto } from './dto/get-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @ApiTags('Users')
 @Controller('users')
@@ -39,7 +41,6 @@ export class UsersController {
       example: {
         id: '1',
         username: 'john_doe',
-        pseudoname: 'John',
         avatarUrl: null,
       },
     },
@@ -49,6 +50,14 @@ export class UsersController {
   })
   createUser(@Body() createU: CreateUserDto) {
     return this.usersService.create(createU);
+  }
+
+  @Get('me')
+  @UseGuards(AuthGuard('jwt'))
+  @ApiBearerAuth()
+  @ApiOperation({ summary: 'Get current authentificated user profile' })
+  me(@CurrentUser() user: { userId: string }) {
+    return this.usersService.getMe(user?.userId);
   }
 
   @Get()

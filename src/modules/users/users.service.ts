@@ -4,33 +4,30 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { CreateUserDto, UpdateUserDto, UserQueryDto } from './dto/user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
-import * as bcrypt from 'bcrypt';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UserQueryDto } from './dto/get-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UsersService {
   constructor(private readonly prisma: PrismaService) {}
   async create(createUserDto: CreateUserDto) {
-    const { username, pseudoname, password, avatarUrl } = createUserDto;
+    const { username, password, pseudoname, avatarUrl } = createUserDto;
 
     const existingUser = await this.prisma.user.findFirst({
-      where: {
-        OR: [{ username }, { pseudoname }],
-      },
+      where: { username },
     });
 
-    const hashedPassword = await bcrypt.hash(password, 10);
-
     if (existingUser) {
-      throw new BadRequestException('Username or pseudoname already exists');
+      throw new BadRequestException('Username already exists');
     }
 
     return this.prisma.user.create({
       data: {
         username,
+        password,
         pseudoname,
-        password: hashedPassword,
         avatarUrl,
       },
       select: {
@@ -41,6 +38,24 @@ export class UsersService {
         pseudoname: true,
       },
     });
+  }
+
+  async getMe(userId: string) {
+    const u = await this.findById(userId);
+
+    return {
+      id: u.id,
+      username: u.username,
+      pseudoname: u.pseudoname,
+      avatarUrl: u.avatarUrl,
+      join_date: u.join_date,
+      created_at: u.created_at,
+      counts: {
+        posts: u?._count.posts ?? 0,
+        followers: u?._count?.followers ?? 0,
+        followings: u?._count.following ?? 0,
+      },
+    };
   }
 
   async findById(id: string) {
@@ -61,22 +76,12 @@ export class UsersService {
   }
 
   async findByUsername(username: string) {
-    const user = await this.prisma.user.findFirst({
+    const uName = username.trim().toLowerCase();
+    return this.prisma.user.findUnique({
       where: {
-        username: {
-          contains: username,
-          mode: 'insensitive',
-        },
+        username: uName,
       },
     });
-
-    console.log(user, username, 'User coming from query');
-
-    if (!user) {
-      throw new NotFoundException('User not found');
-    }
-
-    return user;
   }
 
   async findAll(query: UserQueryDto) {

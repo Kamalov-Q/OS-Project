@@ -17,12 +17,9 @@ import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
-import {
-  ApiBearerAuth,
-  ApiOperation,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { PostQueryDto } from './dto/query-post.dto';
+import { OptionalJwtAuthGuard } from '../auth/guards/optional-jwt.guard';
 
 @ApiTags('Posts')
 @Controller('posts')
@@ -38,27 +35,37 @@ export class PostsController {
     @Body(ValidationPipe) createPostDto: CreatePostDto,
     @CurrentUser() user: { userId: string },
   ) {
-    return this.postsService.create(user.userId as string, createPostDto);
+    return this.postsService.create(user.userId, createPostDto);
   }
 
   @Get()
-  @ApiOperation({
-    summary: 'List posts with search, limit and offset',
-  })
-  findAll(@Query(ValidationPipe) query: PostQueryDto) {
-    return this.postsService.findAll(query);
+  @UseGuards(OptionalJwtAuthGuard)
+  @ApiOperation({ summary: 'List posts with search, limit and offset' })
+  findAll(
+    @Query(ValidationPipe) query: PostQueryDto,
+    @CurrentUser() user: { userId: string } | null,
+  ) {
+    return this.postsService.findAll(user?.userId ?? null, query);
   }
 
   @Get('user/:userId')
+  @UseGuards(OptionalJwtAuthGuard)
   @ApiOperation({ summary: 'Get posts by a user ID' })
-  findByUser(@Param('userId') userId: string) {
-    return this.postsService.findByUser(userId);
+  findByUser(
+    @Param('userId') userId: string,
+    @CurrentUser() user: { userId: string } | null,
+  ) {
+    return this.postsService.findByUser(user?.userId ?? null, userId);
   }
 
   @Get(':id')
+  @UseGuards(OptionalJwtAuthGuard)
   @ApiOperation({ summary: 'Get a single post' })
-  findOne(@Param('id') id: string) {
-    return this.postsService.findOne(id);
+  findOne(
+    @Param('id') id: string,
+    @CurrentUser() user: { userId: string } | null,
+  ) {
+    return this.postsService.findOne(user?.userId ?? null, id);
   }
 
   @Put(':id')
@@ -70,7 +77,7 @@ export class PostsController {
     @Param('id') id: string,
     @Body() updatePostDto: UpdatePostDto,
   ) {
-    return this.postsService.update(id, user?.userId, updatePostDto);
+    return this.postsService.update(id, user.userId, updatePostDto);
   }
 
   @Delete(':id')

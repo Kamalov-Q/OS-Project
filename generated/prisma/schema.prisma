@@ -18,7 +18,7 @@ enum NotificationType {
 model User {
   id            String         @id @default(cuid())
   username      String         @unique
-  pseudoname    String         @unique
+  pseudoname    String?
   password      String
   avatarUrl     String?
   join_date     DateTime       @default(now())
@@ -94,5 +94,5 @@ model PostView {
   userId   String
   viewedAt DateTime @default(now())
 
-  @@unique([postId, userId]) // prevent double views by same user
+  @@unique([postId, userId])
 }

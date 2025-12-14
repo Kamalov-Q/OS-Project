@@ -94,5 +94,5 @@ model PostView {
   userId   String
   viewedAt DateTime @default(now())
 
-  @@unique([postId, userId]) // prevent double views by same user
+  @@unique([postId, userId])
 }

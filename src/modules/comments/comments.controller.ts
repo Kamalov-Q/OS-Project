@@ -33,15 +33,16 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
+import { OptionalJwtAuthGuard } from '../auth/guards/optional-jwt.guard';
 
 @ApiTags('Comments')
 @ApiBearerAuth('JWT-auth')
 @Controller('comments')
-@UseGuards(AuthGuard('jwt'))
 export class CommentsController {
   constructor(private readonly commentsService: CommentsService) {}
 
   @Post()
+  @UseGuards(AuthGuard('jwt'))
   @HttpCode(HttpStatus.CREATED)
   @ApiOperation({ summary: 'Create a new comment' })
   @ApiCreatedResponse({ description: 'Comment created successfully' })
@@ -55,40 +56,47 @@ export class CommentsController {
   }
 
   @Get()
+  @UseGuards(OptionalJwtAuthGuard)
   @ApiOperation({ summary: 'Get comments with filters (pagination supported)' })
   @ApiQuery({ name: 'postId', required: false })
   @ApiQuery({ name: 'userId', required: false })
   @ApiQuery({ name: 'limit', required: false })
   @ApiQuery({ name: 'offset', required: false })
-  findAll(@Query(ValidationPipe) query: CommentQueryDto) {
-    return this.commentsService.findAll(query);
+  findAll(@Req() req: any, @Query(ValidationPipe) query: CommentQueryDto) {
+    const viewerId = req.user?.userId ?? null;
+    return this.commentsService.findAll(viewerId, query);
   }
 
   @Get('post/:postId/count')
   @ApiOperation({ summary: 'Get number of comments for a specific post' })
-  @ApiParam({ name: 'userId', description: 'User ID' })
+  @ApiParam({ name: 'postId', description: 'Post ID' })
   @ApiOkResponse()
   countByPost(@Param('postId') postId: string) {
     return this.commentsService.countByPost(postId);
   }
 
   @Get('user/:userId')
+  @UseGuards(OptionalJwtAuthGuard)
   @ApiOperation({ summary: 'Get all comments written by a specific user' })
   @ApiParam({ name: 'userId', description: 'User ID' })
-  findByUser(@Param('userId') userId: string) {
-    return this.commentsService.findByUser(userId);
+  findByUser(@Req() req: any, @Param('userId') userId: string) {
+    const viewerId = req.user?.userId ?? null;
+    return this.commentsService.findByUser(viewerId, userId);
   }
 
   @Get(':id')
+  @UseGuards(OptionalJwtAuthGuard)
   @ApiOperation({ summary: 'Get a comment by ID' })
   @ApiParam({ name: 'id', description: 'Comment ID' })
   @ApiOkResponse()
   @ApiNotFoundResponse({ description: 'Comment not found' })
-  findOne(@Param('id') id: string) {
-    return this.commentsService.findOne(id);
+  findOne(@Req() req: any, @Param('id') id: string) {
+    const viewerId = req.user?.userId ?? null;
+    return this.commentsService.findOne(viewerId, id);
   }
 
   @Put(':id')
+  @UseGuards(AuthGuard('jwt'))
   @ApiOperation({ summary: 'Update a comment (only author can update)' })
   @ApiParam({ name: 'id', description: 'Comment ID' })
   @ApiOkResponse({ description: 'Comment updated successfully' })
@@ -99,18 +107,19 @@ export class CommentsController {
     @Param('id') id: string,
     @Body(ValidationPipe) updateCommentDto: UpdateCommentDto,
   ) {
-    const userId = req?.user!.userId;
+    const userId = req.user!.userId;
     return this.commentsService.update(id, userId, updateCommentDto);
   }
 
   @Delete(':id')
-  @ApiOperation({ description: 'Delete a comment (only author can delete)' })
+  @UseGuards(AuthGuard('jwt'))
+  @ApiOperation({ summary: 'Delete a comment (only author can delete)' })
   @ApiParam({ name: 'id', description: 'Comment ID' })
   @ApiNoContentResponse({ description: 'Comment deleted successfully' })
   @ApiForbiddenResponse({ description: 'Forbidden: Not the owner' })
   @HttpCode(HttpStatus.NO_CONTENT)
   remove(@Req() req: RequestWithUser, @Param('id') id: string) {
-    const userId = req?.user!.userId;
+    const userId = req.user!.userId;
     return this.commentsService.remove(id, userId);
   }
 }

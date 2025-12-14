@@ -1,6 +1,5 @@
 import { Controller, Post, Body } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { LoginDto, RegisterDto } from './dto/auth.dto';
 import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
@@ -9,6 +8,8 @@ import {
   ApiTags,
   ApiUnauthorizedResponse,
 } from '@nestjs/swagger';
+import { RegisterDto } from './dto/register-user.dto';
+import { LoginDto } from './dto/login-user.dto';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -20,10 +21,11 @@ export class AuthController {
   @ApiCreatedResponse({
     description: 'User registered successfully',
     schema: {
-      example: { 
+      example: {
         id: 1,
         username: 'Eshmat Toshmatov',
         pseudoname: 'Qizlarni ajali',
+        avatarUrl: 'image/png',
         message: 'Registered successfully',
       },
     },
@@ -46,6 +48,7 @@ export class AuthController {
           id: 1,
           username: 'John Doe',
           pseudoname: 'Eshmatjon',
+          avatarUrl: './image/png',
         },
       },
     },
