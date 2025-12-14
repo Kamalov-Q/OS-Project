@@ -5,7 +5,7 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  const port = process.env.PORT || 3000;
+  const port = process.env.PORT || 3003;
 
   app.enableCors({
     origin: process?.env.CORS_ORIGIN || '*',
@@ -33,7 +33,7 @@ async function bootstrap() {
       scheme: 'bearer',
       bearerFormat: 'JWT',
     })
-    .addServer('http://localhost:3002', 'Development Server')
+    .addServer(`http://localhost:${port}`, 'Development Server')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
