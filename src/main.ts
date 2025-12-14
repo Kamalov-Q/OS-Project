@@ -1,7 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ValidationPipe } from '@nestjs/common';
+import { BadRequestException, ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { AllExceptionsFilter } from './utils/error-handler';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -11,13 +12,25 @@ async function bootstrap() {
     origin: process?.env.CORS_ORIGIN || '*',
     credentials: true,
   });
-  app.setGlobalPrefix('api');
-  app.useGlobalFilters();
+  app.setGlobalPrefix('api', {
+    exclude: [{ path: '/', method: 0 }],
+  });
+  app.useGlobalFilters(new AllExceptionsFilter());
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
       forbidNonWhitelisted: true,
       transform: true,
+      exceptionFactory: (errors) => {
+        const formatted = errors.map((e) => ({
+          field: e.property,
+          errors: e.constraints ? Object.values(e.constraints) : [],
+        }));
+        return new BadRequestException({
+          message: 'Validation failed',
+          errors: formatted,
+        });
+      },
     }),
   );
 
@@ -34,6 +47,7 @@ async function bootstrap() {
       bearerFormat: 'JWT',
     })
     .addServer(`http://localhost:${port}`, 'Development Server')
+    .addServer(`https://os-project-k18n.onrender.com/`, 'Production Server')
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
