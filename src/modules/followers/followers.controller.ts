@@ -10,14 +10,16 @@ import {
 import { FollowersService } from './followers.service';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { AuthGuard } from '@nestjs/passport';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Followers')
 @Controller('followers')
 export class FollowersController {
   constructor(private readonly followersService: FollowersService) {}
 
   //Follow or unfollow a user
   @UseGuards(AuthGuard('jwt'))
-  @Post('toggle/:followedId') 
+  @Post('toggle/:followedId')
   @HttpCode(HttpStatus.CREATED)
   async toggleFollow(
     @CurrentUser() user: { userId: string },

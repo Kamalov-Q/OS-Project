@@ -52,7 +52,13 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, config);
 
-  SwaggerModule.setup('api/docs', app, document);
+  SwaggerModule.setup('api/docs', app, document, {
+    customCss: `
+      .swagger-ui .topbar { display: none; }
+      .swagger-ui .scheme-container { box-shadow: none; }
+    `,
+    swaggerOptions: { tagsSorter: 'alpha' },
+  });
 
   await app.listen(port);
   console.log(`Server listening on http://localhost:${port}`);

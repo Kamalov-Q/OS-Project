@@ -19,6 +19,7 @@
     "@nestjs/passport": "^10.0.0",
     "@nestjs/platform-express": "^10.4.20",
     "@nestjs/platform-socket.io": "^10.4.20",
+    "@nestjs/serve-static": "^4.0.2",
     "@nestjs/swagger": "^7.4.2",
     "@nestjs/websockets": "^10.4.20",
     "@prisma/adapter-pg": "^7.0.1",

@@ -10,11 +10,19 @@ import { EventsModule } from './notifications/events.module';
 import { CommentsModule } from './modules/comments/comments.module';
 import { HealthController } from './modules/health/health.controller';
 import { RedirectController } from './modules/redirect/redirect.controller';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
+import { UploadController } from './modules/upload/upload.controller';
+import { ViewsModule } from './modules/views/views.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+    }),
+    ServeStaticModule.forRoot({
+      rootPath: join(process.cwd(), 'public'),
+      serveRoot: '/public',
     }),
     EventsModule,
     PrismaModule,
@@ -24,7 +32,8 @@ import { RedirectController } from './modules/redirect/redirect.controller';
     CommentsModule,
     LikesModule,
     FollowersModule,
+    ViewsModule,
   ],
-  controllers: [HealthController, RedirectController],
+  controllers: [HealthController, RedirectController, UploadController],
 })
 export class AppModule {}
