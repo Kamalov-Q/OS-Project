@@ -9,7 +9,7 @@ async function bootstrap() {
   const port = process.env.PORT || 3003;
 
   app.enableCors({
-    origin: process?.env.CORS_ORIGIN || '*',
+    origin: process?.env.CORS_ORIGIN || 'http://localhost:5173',
     credentials: true,
   });
   app.setGlobalPrefix('api', {
