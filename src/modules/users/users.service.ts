@@ -25,10 +25,10 @@ export class UsersService {
 
     return this.prisma.user.create({
       data: {
-        username,
-        password,
-        pseudoname,
-        avatarUrl,
+        username: username!,
+        password: password!,
+        pseudoname: pseudoname!,
+        avatarUrl: avatarUrl!,
       },
       select: {
         id: true,
