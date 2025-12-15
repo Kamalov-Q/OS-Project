@@ -18,7 +18,7 @@ enum NotificationType {
 model User {
   id            String         @id @default(cuid())
   username      String         @unique
-  pseudoname    String?
+  pseudoname    String         @unique
   password      String
   avatarUrl     String?
   join_date     DateTime       @default(now())

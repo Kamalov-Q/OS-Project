@@ -1,64 +1,47 @@
 import {
   Controller,
-  Get,
   Post,
-  Body,
+  Get,
   Param,
+  Body,
   UseGuards,
-  HttpCode,
-  HttpStatus,
   Req,
+  BadRequestException,
 } from '@nestjs/common';
 import { ViewsService } from './views.service';
-import { CreateViewDto } from './dto/create-view.dto';
-import {
-  ApiBearerAuth,
-  ApiCreatedResponse,
-  ApiOkResponse,
-  ApiOperation,
-  ApiTags,
-} from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
-import { type RequestWithUser } from 'src/interfaces/request-with-user.interface';
 
-@ApiTags('Views')
-@ApiBearerAuth('JWT-auth')
 @Controller('views')
 @UseGuards(AuthGuard('jwt'))
 export class ViewsController {
   constructor(private readonly viewsService: ViewsService) {}
 
   @Post()
-  @HttpCode(HttpStatus.CREATED)
-  @ApiOperation({ summary: 'Mark post as viewed by current user' })
-  @ApiCreatedResponse({
-    description: 'View added or ignored if already viewed',
-  })
-  create(@Req() req: RequestWithUser, @Body() createViewDto: CreateViewDto) {
-    const userId = req.user!.userId;
-    return this.viewsService.create(userId, createViewDto.postId);
+  async createView(@Req() req: any, @Body('postId') postId: string) {
+    if (!postId) {
+      throw new BadRequestException('postId is required');
+    }
+
+    const userId = req.user.id;
+    return this.viewsService.create(userId, postId);
   }
 
-  @Get('post/:postId/count')
-  @ApiOperation({ summary: 'Get total number of views for a post' })
-  @ApiOkResponse()
-  count(@Param('postId') postId: string) {
+  // IMPORTANT: Put specific routes BEFORE parameterized routes
+  @Get('check/:postId')
+  async checkViewed(@Req() req: any, @Param('postId') postId: string) {
+    const userId = req.user.id;
+    return this.viewsService.userViewedPost(userId, postId);
+  }
+
+  @Get('count/:postId')
+  async getViewCount(@Param('postId') postId: string) {
     return this.viewsService.countViews(postId);
   }
 
-  @Get('post/:postId/users')
-  @ApiOperation({ summary: 'Get users who viewed a post' })
-  @ApiOkResponse()
-  listViewers(@Req() req: RequestWithUser, @Param('postId') postId: string) {
-    const viewerId = req.user!.userId;
+  // This should be LAST because it catches any GET /:postId
+  @Get(':postId')
+  async getViewers(@Req() req: any, @Param('postId') postId: string) {
+    const viewerId = req.user.id;
     return this.viewsService.listViewers(viewerId, postId);
-  }
-
-  @Get('check/:postId')
-  @ApiOperation({ summary: 'Check if current user viewed a post' })
-  @ApiOkResponse()
-  check(@Req() req: RequestWithUser, @Param('postId') postId: string) {
-    const viewerId = req.user!.userId;
-    return this.viewsService.userViewedPost(viewerId, postId);
   }
 }
