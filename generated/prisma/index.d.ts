@@ -2641,7 +2641,6 @@ export namespace Prisma {
     id: string | null
     userId: string | null
     content: string | null
-    imageUrl: string | null
     created_at: Date | null
   }
 
@@ -2649,7 +2648,6 @@ export namespace Prisma {
     id: string | null
     userId: string | null
     content: string | null
-    imageUrl: string | null
     created_at: Date | null
   }
 
@@ -2657,7 +2655,7 @@ export namespace Prisma {
     id: number
     userId: number
     content: number
-    imageUrl: number
+    imageUrls: number
     created_at: number
     _all: number
   }
@@ -2667,7 +2665,6 @@ export namespace Prisma {
     id?: true
     userId?: true
     content?: true
-    imageUrl?: true
     created_at?: true
   }
 
@@ -2675,7 +2672,6 @@ export namespace Prisma {
     id?: true
     userId?: true
     content?: true
-    imageUrl?: true
     created_at?: true
   }
 
@@ -2683,7 +2679,7 @@ export namespace Prisma {
     id?: true
     userId?: true
     content?: true
-    imageUrl?: true
+    imageUrls?: true
     created_at?: true
     _all?: true
   }
@@ -2764,7 +2760,7 @@ export namespace Prisma {
     id: string
     userId: string
     content: string
-    imageUrl: string | null
+    imageUrls: JsonValue | null
     created_at: Date
     _count: PostCountAggregateOutputType | null
     _min: PostMinAggregateOutputType | null
@@ -2789,7 +2785,7 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     content?: boolean
-    imageUrl?: boolean
+    imageUrls?: boolean
     created_at?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     comments?: boolean | Post$commentsArgs<ExtArgs>
@@ -2802,7 +2798,7 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     content?: boolean
-    imageUrl?: boolean
+    imageUrls?: boolean
     created_at?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["post"]>
@@ -2811,7 +2807,7 @@ export namespace Prisma {
     id?: boolean
     userId?: boolean
     content?: boolean
-    imageUrl?: boolean
+    imageUrls?: boolean
     created_at?: boolean
   }
 
@@ -2838,7 +2834,7 @@ export namespace Prisma {
       id: string
       userId: string
       content: string
-      imageUrl: string | null
+      imageUrls: Prisma.JsonValue | null
       created_at: Date
     }, ExtArgs["result"]["post"]>
     composites: {}
@@ -3240,7 +3236,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Post", 'String'>
     readonly userId: FieldRef<"Post", 'String'>
     readonly content: FieldRef<"Post", 'String'>
-    readonly imageUrl: FieldRef<"Post", 'String'>
+    readonly imageUrls: FieldRef<"Post", 'Json'>
     readonly created_at: FieldRef<"Post", 'DateTime'>
   }
     
@@ -8330,7 +8326,7 @@ export namespace Prisma {
     id: 'id',
     userId: 'userId',
     content: 'content',
-    imageUrl: 'imageUrl',
+    imageUrls: 'imageUrls',
     created_at: 'created_at'
   };
 
@@ -8398,6 +8394,14 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull
+  };
+
+  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
   export const QueryMode: {
     default: 'default',
     insensitive: 'insensitive'
@@ -8412,6 +8416,15 @@ export namespace Prisma {
   };
 
   export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+  export const JsonNullValueFilter: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull,
+    AnyNull: typeof AnyNull
+  };
+
+  export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
   /**
@@ -8444,6 +8457,13 @@ export namespace Prisma {
    * Reference to a field of type 'DateTime[]'
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Json'
+   */
+  export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
     
 
 
@@ -8575,7 +8595,7 @@ export namespace Prisma {
     id?: StringFilter<"Post"> | string
     userId?: StringFilter<"Post"> | string
     content?: StringFilter<"Post"> | string
-    imageUrl?: StringNullableFilter<"Post"> | string | null
+    imageUrls?: JsonNullableFilter<"Post">
     created_at?: DateTimeFilter<"Post"> | Date | string
     user?: XOR<UserRelationFilter, UserWhereInput>
     comments?: CommentListRelationFilter
@@ -8587,7 +8607,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     content?: SortOrder
-    imageUrl?: SortOrderInput | SortOrder
+    imageUrls?: SortOrderInput | SortOrder
     created_at?: SortOrder
     user?: UserOrderByWithRelationInput
     comments?: CommentOrderByRelationAggregateInput
@@ -8602,7 +8622,7 @@ export namespace Prisma {
     NOT?: PostWhereInput | PostWhereInput[]
     userId?: StringFilter<"Post"> | string
     content?: StringFilter<"Post"> | string
-    imageUrl?: StringNullableFilter<"Post"> | string | null
+    imageUrls?: JsonNullableFilter<"Post">
     created_at?: DateTimeFilter<"Post"> | Date | string
     user?: XOR<UserRelationFilter, UserWhereInput>
     comments?: CommentListRelationFilter
@@ -8614,7 +8634,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     content?: SortOrder
-    imageUrl?: SortOrderInput | SortOrder
+    imageUrls?: SortOrderInput | SortOrder
     created_at?: SortOrder
     _count?: PostCountOrderByAggregateInput
     _max?: PostMaxOrderByAggregateInput
@@ -8628,7 +8648,7 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"Post"> | string
     userId?: StringWithAggregatesFilter<"Post"> | string
     content?: StringWithAggregatesFilter<"Post"> | string
-    imageUrl?: StringNullableWithAggregatesFilter<"Post"> | string | null
+    imageUrls?: JsonNullableWithAggregatesFilter<"Post">
     created_at?: DateTimeWithAggregatesFilter<"Post"> | Date | string
   }
 
@@ -9013,7 +9033,7 @@ export namespace Prisma {
   export type PostCreateInput = {
     id?: string
     content: string
-    imageUrl?: string | null
+    imageUrls?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
     user: UserCreateNestedOneWithoutPostsInput
     comments?: CommentCreateNestedManyWithoutPostInput
@@ -9025,7 +9045,7 @@ export namespace Prisma {
     id?: string
     userId: string
     content: string
-    imageUrl?: string | null
+    imageUrls?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
     comments?: CommentUncheckedCreateNestedManyWithoutPostInput
     likes?: LikeUncheckedCreateNestedManyWithoutPostInput
@@ -9035,7 +9055,7 @@ export namespace Prisma {
   export type PostUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrls?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutPostsNestedInput
     comments?: CommentUpdateManyWithoutPostNestedInput
@@ -9047,7 +9067,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrls?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     comments?: CommentUncheckedUpdateManyWithoutPostNestedInput
     likes?: LikeUncheckedUpdateManyWithoutPostNestedInput
@@ -9058,14 +9078,14 @@ export namespace Prisma {
     id?: string
     userId: string
     content: string
-    imageUrl?: string | null
+    imageUrls?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
   }
 
   export type PostUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrls?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -9073,7 +9093,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrls?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -9519,6 +9539,28 @@ export namespace Prisma {
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
+  export type JsonNullableFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type UserRelationFilter = {
     is?: UserWhereInput
@@ -9529,7 +9571,7 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     content?: SortOrder
-    imageUrl?: SortOrder
+    imageUrls?: SortOrder
     created_at?: SortOrder
   }
 
@@ -9537,7 +9579,6 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     content?: SortOrder
-    imageUrl?: SortOrder
     created_at?: SortOrder
   }
 
@@ -9545,8 +9586,32 @@ export namespace Prisma {
     id?: SortOrder
     userId?: SortOrder
     content?: SortOrder
-    imageUrl?: SortOrder
     created_at?: SortOrder
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
   export type PostRelationFilter = {
@@ -10401,6 +10466,28 @@ export namespace Prisma {
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
+  export type NestedJsonNullableFilter<$PrismaModel = never> = 
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type NestedEnumNotificationTypeFilter<$PrismaModel = never> = {
     equals?: $Enums.NotificationType | EnumNotificationTypeFieldRefInput<$PrismaModel>
@@ -10435,7 +10522,7 @@ export namespace Prisma {
   export type PostCreateWithoutUserInput = {
     id?: string
     content: string
-    imageUrl?: string | null
+    imageUrls?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
     comments?: CommentCreateNestedManyWithoutPostInput
     likes?: LikeCreateNestedManyWithoutPostInput
@@ -10445,7 +10532,7 @@ export namespace Prisma {
   export type PostUncheckedCreateWithoutUserInput = {
     id?: string
     content: string
-    imageUrl?: string | null
+    imageUrls?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
     comments?: CommentUncheckedCreateNestedManyWithoutPostInput
     likes?: LikeUncheckedCreateNestedManyWithoutPostInput
@@ -10623,7 +10710,7 @@ export namespace Prisma {
     id?: StringFilter<"Post"> | string
     userId?: StringFilter<"Post"> | string
     content?: StringFilter<"Post"> | string
-    imageUrl?: StringNullableFilter<"Post"> | string | null
+    imageUrls?: JsonNullableFilter<"Post">
     created_at?: DateTimeFilter<"Post"> | Date | string
   }
 
@@ -10975,7 +11062,7 @@ export namespace Prisma {
   export type PostCreateWithoutCommentsInput = {
     id?: string
     content: string
-    imageUrl?: string | null
+    imageUrls?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
     user: UserCreateNestedOneWithoutPostsInput
     likes?: LikeCreateNestedManyWithoutPostInput
@@ -10986,7 +11073,7 @@ export namespace Prisma {
     id?: string
     userId: string
     content: string
-    imageUrl?: string | null
+    imageUrls?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
     likes?: LikeUncheckedCreateNestedManyWithoutPostInput
     views?: PostViewUncheckedCreateNestedManyWithoutPostInput
@@ -11048,7 +11135,7 @@ export namespace Prisma {
   export type PostUpdateWithoutCommentsInput = {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrls?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutPostsNestedInput
     likes?: LikeUpdateManyWithoutPostNestedInput
@@ -11059,7 +11146,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrls?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     likes?: LikeUncheckedUpdateManyWithoutPostNestedInput
     views?: PostViewUncheckedUpdateManyWithoutPostNestedInput
@@ -11111,7 +11198,7 @@ export namespace Prisma {
   export type PostCreateWithoutLikesInput = {
     id?: string
     content: string
-    imageUrl?: string | null
+    imageUrls?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
     user: UserCreateNestedOneWithoutPostsInput
     comments?: CommentCreateNestedManyWithoutPostInput
@@ -11122,7 +11209,7 @@ export namespace Prisma {
     id?: string
     userId: string
     content: string
-    imageUrl?: string | null
+    imageUrls?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
     comments?: CommentUncheckedCreateNestedManyWithoutPostInput
     views?: PostViewUncheckedCreateNestedManyWithoutPostInput
@@ -11184,7 +11271,7 @@ export namespace Prisma {
   export type PostUpdateWithoutLikesInput = {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrls?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutPostsNestedInput
     comments?: CommentUpdateManyWithoutPostNestedInput
@@ -11195,7 +11282,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrls?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     comments?: CommentUncheckedUpdateManyWithoutPostNestedInput
     views?: PostViewUncheckedUpdateManyWithoutPostNestedInput
@@ -11487,7 +11574,7 @@ export namespace Prisma {
   export type PostCreateWithoutViewsInput = {
     id?: string
     content: string
-    imageUrl?: string | null
+    imageUrls?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
     user: UserCreateNestedOneWithoutPostsInput
     comments?: CommentCreateNestedManyWithoutPostInput
@@ -11498,7 +11585,7 @@ export namespace Prisma {
     id?: string
     userId: string
     content: string
-    imageUrl?: string | null
+    imageUrls?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
     comments?: CommentUncheckedCreateNestedManyWithoutPostInput
     likes?: LikeUncheckedCreateNestedManyWithoutPostInput
@@ -11560,7 +11647,7 @@ export namespace Prisma {
   export type PostUpdateWithoutViewsInput = {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrls?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutPostsNestedInput
     comments?: CommentUpdateManyWithoutPostNestedInput
@@ -11571,7 +11658,7 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     userId?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrls?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     comments?: CommentUncheckedUpdateManyWithoutPostNestedInput
     likes?: LikeUncheckedUpdateManyWithoutPostNestedInput
@@ -11623,7 +11710,7 @@ export namespace Prisma {
   export type PostCreateManyUserInput = {
     id?: string
     content: string
-    imageUrl?: string | null
+    imageUrls?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
   }
 
@@ -11669,7 +11756,7 @@ export namespace Prisma {
   export type PostUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrls?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     comments?: CommentUpdateManyWithoutPostNestedInput
     likes?: LikeUpdateManyWithoutPostNestedInput
@@ -11679,7 +11766,7 @@ export namespace Prisma {
   export type PostUncheckedUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrls?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     comments?: CommentUncheckedUpdateManyWithoutPostNestedInput
     likes?: LikeUncheckedUpdateManyWithoutPostNestedInput
@@ -11689,7 +11776,7 @@ export namespace Prisma {
   export type PostUncheckedUpdateManyWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     content?: StringFieldUpdateOperationsInput | string
-    imageUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    imageUrls?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

@@ -1,5 +1,11 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { Type } from 'class-transformer';
+import { IsNotEmpty, IsOptional, IsString, ValidateNested } from 'class-validator';
+
+class PostImageDto {
+  @IsString()
+  url: string;
+}
 
 export class CreatePostDto {
   @ApiProperty({
@@ -11,10 +17,13 @@ export class CreatePostDto {
   content: string;
 
   @ApiPropertyOptional({
-    example: '/img.png',
+    example: [{ url: '/image.png' }],
+    type: [Object],
     description: 'Image for a post',
   })
   @IsString()
-  @IsOptional() 
-  imageUrl?: string;
+  @IsOptional()
+  @ValidateNested({ each: true })
+  @Type(() => PostImageDto)
+  imageUrls?: PostImageDto[];
 }

@@ -15,7 +15,7 @@ export class PostsService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly eventsGateway: EventsGateway,
-  ) {}
+  ) { }
 
   private publicUserSelect = {
     id: true,
@@ -62,10 +62,14 @@ export class PostsService {
   }
 
   async create(userId: string, createPostDto: CreatePostDto) {
-    const { content, imageUrl } = createPostDto;
+    const { content, imageUrls } = createPostDto;
 
     const post = await this.prisma.post.create({
-      data: { content, imageUrl: imageUrl ?? null, userId },
+      data: { 
+        content,
+        imageUrls: imageUrls ? (imageUrls as unknown as Prisma.InputJsonValue) : [],
+        userId
+      },
       include: {
         user: { select: this.publicUserSelect },
         comments: true,
@@ -164,9 +168,15 @@ export class PostsService {
     if (post.userId !== userId)
       throw new ForbiddenException('Not authorized to update this post');
 
+    const { imageUrls, ...restDto } = updatePostDto;
     const updatedPost = await this.prisma.post.update({
       where: { id },
-      data: updatePostDto,
+      data: {
+        ...restDto,
+        ...(imageUrls !== undefined
+          ? { imageUrls: imageUrls as any }
+          : {}),
+      },
       include: {
         user: { select: this.publicUserSelect },
         comments: true,

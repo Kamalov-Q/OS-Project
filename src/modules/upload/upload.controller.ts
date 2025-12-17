@@ -26,7 +26,7 @@ function editFileName(req: any, file: Express.Multer.File, cb: any) {
 @ApiTags('Uploads')
 @Controller('uploads')
 export class UploadController {
-  @Post()
+  @Post() 
   @ApiConsumes('multipart/form-data')
   @ApiBody({
     schema: {

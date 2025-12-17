@@ -37,7 +37,7 @@ model Post {
   user       User       @relation(fields: [userId], references: [id])
   userId     String
   content    String
-  imageUrl   String?
+  imageUrls   Json?
   created_at DateTime   @default(now())
   comments   Comment[]
   likes      Like[]
