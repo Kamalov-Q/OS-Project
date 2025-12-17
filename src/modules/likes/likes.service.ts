@@ -7,7 +7,7 @@ export class LikesService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly eventsGateway: EventsGateway,
-  ) {}
+  ) { }
 
   private publicUserSelect = {
     id: true,
@@ -78,6 +78,7 @@ export class LikesService {
 
     if (!post) throw new NotFoundException('Post not found');
 
+    // Allow liker to see own username
     const usernameMap = await this.buildUsernameMap(userId, [userId]);
     const shapedLike = this.attachDisplayName([like], usernameMap)[0];
 
@@ -85,6 +86,7 @@ export class LikesService {
 
     return { liked: true };
   }
+
 
   async count(postId: string) {
     const count = await this.prisma.like.count({ where: { postId } });

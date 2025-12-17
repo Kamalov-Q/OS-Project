@@ -128,6 +128,7 @@ exports.Prisma.UserScalarFieldEnum = {
   pseudoname: 'pseudoname',
   password: 'password',
   avatarUrl: 'avatarUrl',
+  refreshToken: 'refreshToken',
   join_date: 'join_date',
   created_at: 'created_at'
 };
@@ -168,6 +169,7 @@ exports.Prisma.NotificationScalarFieldEnum = {
   type: 'type',
   read: 'read',
   message: 'message',
+  meta: 'meta',
   created_at: 'created_at'
 };
 

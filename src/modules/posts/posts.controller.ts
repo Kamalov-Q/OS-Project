@@ -57,7 +57,7 @@ export class PostsController {
   ) {
     return this.postsService.findByUser(user?.userId ?? null, userId);
   }
-
+ 
   @Get(':id')
   @UseGuards(OptionalJwtAuthGuard)
   @ApiOperation({ summary: 'Get a single post' })

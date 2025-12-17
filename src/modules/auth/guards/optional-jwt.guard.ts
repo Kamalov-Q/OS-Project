@@ -3,7 +3,7 @@ import { AuthGuard } from '@nestjs/passport';
 
 @Injectable()
 export class OptionalJwtAuthGuard extends AuthGuard('jwt') {
-  handleRequest<TUser = any>(
+  handleRequest<TUser = { userId: string } | null>(
     err: any,
     user: any,
     info: any,

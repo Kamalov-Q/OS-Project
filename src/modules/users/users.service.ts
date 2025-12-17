@@ -7,38 +7,28 @@ import {
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UserQueryDto } from './dto/get-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
   async create(createUserDto: CreateUserDto) {
-    const { username, password, pseudoname, avatarUrl } = createUserDto;
+    const username = createUserDto.username.trim().toLowerCase();
+    const pseudoname = createUserDto.pseudoname || `user-${Math.floor(Math.random() * 1_000_000).toString().padStart(6, '0')}`;
 
-    const existingUser = await this.prisma.user.findFirst({
-      where: { username },
-    });
-
-    if (existingUser) {
-      throw new BadRequestException('Username already exists');
-    }
+    const existingUser = await this.prisma.user.findUnique({ where: { username } });
+    if (existingUser) throw new BadRequestException('Username already exists');
 
     return this.prisma.user.create({
       data: {
-        username: username!,
-        password: password!,
-        pseudoname: pseudoname!,
-        avatarUrl: avatarUrl!,
+        username,
+        password: createUserDto.password,
+        pseudoname,
+        avatarUrl: createUserDto.avatarUrl || null,
       },
-      select: {
-        id: true,
-        join_date: true,
-        avatarUrl: true,
-        username: true,
-        pseudoname: true,
-      },
+      select: { id: true, username: true, pseudoname: true, avatarUrl: true, join_date: true },
     });
   }
+
 
   async getMe(userId: string) {
     const u = await this.findById(userId);
@@ -135,17 +125,20 @@ export class UsersService {
     };
   }
 
-  async update(id: string, updateUserDto: UpdateUserDto, userId: string) {
-    const user = await this.findById(id);
-    if (user.id !== userId) {
-      throw new UnauthorizedException();
+  async update(id: string, data: Partial<{ username: string; password: string; pseudoname: string; avatarUrl: string; refreshToken: string | null }>, userId?: string) {
+    if (userId) {
+      const user = await this.findById(id);
+      if (user.id !== userId) {
+        throw new UnauthorizedException();
+      }
     }
 
     return this.prisma.user.update({
       where: { id },
-      data: updateUserDto,
+      data,
     });
   }
+
 
   async delete(id: string, userId: string) {
     const user = await this.findById(id);

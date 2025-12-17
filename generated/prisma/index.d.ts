@@ -1527,6 +1527,7 @@ export namespace Prisma {
     pseudoname: string | null
     password: string | null
     avatarUrl: string | null
+    refreshToken: string | null
     join_date: Date | null
     created_at: Date | null
   }
@@ -1537,6 +1538,7 @@ export namespace Prisma {
     pseudoname: string | null
     password: string | null
     avatarUrl: string | null
+    refreshToken: string | null
     join_date: Date | null
     created_at: Date | null
   }
@@ -1547,6 +1549,7 @@ export namespace Prisma {
     pseudoname: number
     password: number
     avatarUrl: number
+    refreshToken: number
     join_date: number
     created_at: number
     _all: number
@@ -1559,6 +1562,7 @@ export namespace Prisma {
     pseudoname?: true
     password?: true
     avatarUrl?: true
+    refreshToken?: true
     join_date?: true
     created_at?: true
   }
@@ -1569,6 +1573,7 @@ export namespace Prisma {
     pseudoname?: true
     password?: true
     avatarUrl?: true
+    refreshToken?: true
     join_date?: true
     created_at?: true
   }
@@ -1579,6 +1584,7 @@ export namespace Prisma {
     pseudoname?: true
     password?: true
     avatarUrl?: true
+    refreshToken?: true
     join_date?: true
     created_at?: true
     _all?: true
@@ -1662,6 +1668,7 @@ export namespace Prisma {
     pseudoname: string
     password: string
     avatarUrl: string | null
+    refreshToken: string | null
     join_date: Date
     created_at: Date
     _count: UserCountAggregateOutputType | null
@@ -1689,6 +1696,7 @@ export namespace Prisma {
     pseudoname?: boolean
     password?: boolean
     avatarUrl?: boolean
+    refreshToken?: boolean
     join_date?: boolean
     created_at?: boolean
     posts?: boolean | User$postsArgs<ExtArgs>
@@ -1707,6 +1715,7 @@ export namespace Prisma {
     pseudoname?: boolean
     password?: boolean
     avatarUrl?: boolean
+    refreshToken?: boolean
     join_date?: boolean
     created_at?: boolean
   }, ExtArgs["result"]["user"]>
@@ -1717,6 +1726,7 @@ export namespace Prisma {
     pseudoname?: boolean
     password?: boolean
     avatarUrl?: boolean
+    refreshToken?: boolean
     join_date?: boolean
     created_at?: boolean
   }
@@ -1750,6 +1760,7 @@ export namespace Prisma {
       pseudoname: string
       password: string
       avatarUrl: string | null
+      refreshToken: string | null
       join_date: Date
       created_at: Date
     }, ExtArgs["result"]["user"]>
@@ -2157,6 +2168,7 @@ export namespace Prisma {
     readonly pseudoname: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
     readonly avatarUrl: FieldRef<"User", 'String'>
+    readonly refreshToken: FieldRef<"User", 'String'>
     readonly join_date: FieldRef<"User", 'DateTime'>
     readonly created_at: FieldRef<"User", 'DateTime'>
   }
@@ -6457,6 +6469,7 @@ export namespace Prisma {
     type: number
     read: number
     message: number
+    meta: number
     created_at: number
     _all: number
   }
@@ -6486,6 +6499,7 @@ export namespace Prisma {
     type?: true
     read?: true
     message?: true
+    meta?: true
     created_at?: true
     _all?: true
   }
@@ -6568,6 +6582,7 @@ export namespace Prisma {
     type: $Enums.NotificationType
     read: boolean
     message: string
+    meta: JsonValue | null
     created_at: Date
     _count: NotificationCountAggregateOutputType | null
     _min: NotificationMinAggregateOutputType | null
@@ -6594,6 +6609,7 @@ export namespace Prisma {
     type?: boolean
     read?: boolean
     message?: boolean
+    meta?: boolean
     created_at?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["notification"]>
@@ -6604,6 +6620,7 @@ export namespace Prisma {
     type?: boolean
     read?: boolean
     message?: boolean
+    meta?: boolean
     created_at?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["notification"]>
@@ -6614,6 +6631,7 @@ export namespace Prisma {
     type?: boolean
     read?: boolean
     message?: boolean
+    meta?: boolean
     created_at?: boolean
   }
 
@@ -6635,6 +6653,7 @@ export namespace Prisma {
       type: $Enums.NotificationType
       read: boolean
       message: string
+      meta: Prisma.JsonValue | null
       created_at: Date
     }, ExtArgs["result"]["notification"]>
     composites: {}
@@ -7035,6 +7054,7 @@ export namespace Prisma {
     readonly type: FieldRef<"Notification", 'NotificationType'>
     readonly read: FieldRef<"Notification", 'Boolean'>
     readonly message: FieldRef<"Notification", 'String'>
+    readonly meta: FieldRef<"Notification", 'Json'>
     readonly created_at: FieldRef<"Notification", 'DateTime'>
   }
     
@@ -8315,6 +8335,7 @@ export namespace Prisma {
     pseudoname: 'pseudoname',
     password: 'password',
     avatarUrl: 'avatarUrl',
+    refreshToken: 'refreshToken',
     join_date: 'join_date',
     created_at: 'created_at'
   };
@@ -8370,6 +8391,7 @@ export namespace Prisma {
     type: 'type',
     read: 'read',
     message: 'message',
+    meta: 'meta',
     created_at: 'created_at'
   };
 
@@ -8514,6 +8536,7 @@ export namespace Prisma {
     pseudoname?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
     avatarUrl?: StringNullableFilter<"User"> | string | null
+    refreshToken?: StringNullableFilter<"User"> | string | null
     join_date?: DateTimeFilter<"User"> | Date | string
     created_at?: DateTimeFilter<"User"> | Date | string
     posts?: PostListRelationFilter
@@ -8531,6 +8554,7 @@ export namespace Prisma {
     pseudoname?: SortOrder
     password?: SortOrder
     avatarUrl?: SortOrderInput | SortOrder
+    refreshToken?: SortOrderInput | SortOrder
     join_date?: SortOrder
     created_at?: SortOrder
     posts?: PostOrderByRelationAggregateInput
@@ -8551,6 +8575,7 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     password?: StringFilter<"User"> | string
     avatarUrl?: StringNullableFilter<"User"> | string | null
+    refreshToken?: StringNullableFilter<"User"> | string | null
     join_date?: DateTimeFilter<"User"> | Date | string
     created_at?: DateTimeFilter<"User"> | Date | string
     posts?: PostListRelationFilter
@@ -8568,6 +8593,7 @@ export namespace Prisma {
     pseudoname?: SortOrder
     password?: SortOrder
     avatarUrl?: SortOrderInput | SortOrder
+    refreshToken?: SortOrderInput | SortOrder
     join_date?: SortOrder
     created_at?: SortOrder
     _count?: UserCountOrderByAggregateInput
@@ -8584,6 +8610,7 @@ export namespace Prisma {
     pseudoname?: StringWithAggregatesFilter<"User"> | string
     password?: StringWithAggregatesFilter<"User"> | string
     avatarUrl?: StringNullableWithAggregatesFilter<"User"> | string | null
+    refreshToken?: StringNullableWithAggregatesFilter<"User"> | string | null
     join_date?: DateTimeWithAggregatesFilter<"User"> | Date | string
     created_at?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
@@ -8827,6 +8854,7 @@ export namespace Prisma {
     type?: EnumNotificationTypeFilter<"Notification"> | $Enums.NotificationType
     read?: BoolFilter<"Notification"> | boolean
     message?: StringFilter<"Notification"> | string
+    meta?: JsonNullableFilter<"Notification">
     created_at?: DateTimeFilter<"Notification"> | Date | string
     user?: XOR<UserRelationFilter, UserWhereInput>
   }
@@ -8837,6 +8865,7 @@ export namespace Prisma {
     type?: SortOrder
     read?: SortOrder
     message?: SortOrder
+    meta?: SortOrderInput | SortOrder
     created_at?: SortOrder
     user?: UserOrderByWithRelationInput
   }
@@ -8850,6 +8879,7 @@ export namespace Prisma {
     type?: EnumNotificationTypeFilter<"Notification"> | $Enums.NotificationType
     read?: BoolFilter<"Notification"> | boolean
     message?: StringFilter<"Notification"> | string
+    meta?: JsonNullableFilter<"Notification">
     created_at?: DateTimeFilter<"Notification"> | Date | string
     user?: XOR<UserRelationFilter, UserWhereInput>
   }, "id">
@@ -8860,6 +8890,7 @@ export namespace Prisma {
     type?: SortOrder
     read?: SortOrder
     message?: SortOrder
+    meta?: SortOrderInput | SortOrder
     created_at?: SortOrder
     _count?: NotificationCountOrderByAggregateInput
     _max?: NotificationMaxOrderByAggregateInput
@@ -8875,6 +8906,7 @@ export namespace Prisma {
     type?: EnumNotificationTypeWithAggregatesFilter<"Notification"> | $Enums.NotificationType
     read?: BoolWithAggregatesFilter<"Notification"> | boolean
     message?: StringWithAggregatesFilter<"Notification"> | string
+    meta?: JsonNullableWithAggregatesFilter<"Notification">
     created_at?: DateTimeWithAggregatesFilter<"Notification"> | Date | string
   }
 
@@ -8938,6 +8970,7 @@ export namespace Prisma {
     pseudoname: string
     password: string
     avatarUrl?: string | null
+    refreshToken?: string | null
     join_date?: Date | string
     created_at?: Date | string
     posts?: PostCreateNestedManyWithoutUserInput
@@ -8955,6 +8988,7 @@ export namespace Prisma {
     pseudoname: string
     password: string
     avatarUrl?: string | null
+    refreshToken?: string | null
     join_date?: Date | string
     created_at?: Date | string
     posts?: PostUncheckedCreateNestedManyWithoutUserInput
@@ -8972,6 +9006,7 @@ export namespace Prisma {
     pseudoname?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     join_date?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     posts?: PostUpdateManyWithoutUserNestedInput
@@ -8989,6 +9024,7 @@ export namespace Prisma {
     pseudoname?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     join_date?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     posts?: PostUncheckedUpdateManyWithoutUserNestedInput
@@ -9006,6 +9042,7 @@ export namespace Prisma {
     pseudoname: string
     password: string
     avatarUrl?: string | null
+    refreshToken?: string | null
     join_date?: Date | string
     created_at?: Date | string
   }
@@ -9016,6 +9053,7 @@ export namespace Prisma {
     pseudoname?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     join_date?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9026,6 +9064,7 @@ export namespace Prisma {
     pseudoname?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     join_date?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9250,6 +9289,7 @@ export namespace Prisma {
     type: $Enums.NotificationType
     read?: boolean
     message: string
+    meta?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
     user: UserCreateNestedOneWithoutNotificationsInput
   }
@@ -9260,6 +9300,7 @@ export namespace Prisma {
     type: $Enums.NotificationType
     read?: boolean
     message: string
+    meta?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
   }
 
@@ -9268,6 +9309,7 @@ export namespace Prisma {
     type?: EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
     read?: BoolFieldUpdateOperationsInput | boolean
     message?: StringFieldUpdateOperationsInput | string
+    meta?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutNotificationsNestedInput
   }
@@ -9278,6 +9320,7 @@ export namespace Prisma {
     type?: EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
     read?: BoolFieldUpdateOperationsInput | boolean
     message?: StringFieldUpdateOperationsInput | string
+    meta?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -9287,6 +9330,7 @@ export namespace Prisma {
     type: $Enums.NotificationType
     read?: boolean
     message: string
+    meta?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
   }
 
@@ -9295,6 +9339,7 @@ export namespace Prisma {
     type?: EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
     read?: BoolFieldUpdateOperationsInput | boolean
     message?: StringFieldUpdateOperationsInput | string
+    meta?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -9304,6 +9349,7 @@ export namespace Prisma {
     type?: EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
     read?: BoolFieldUpdateOperationsInput | boolean
     message?: StringFieldUpdateOperationsInput | string
+    meta?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -9466,6 +9512,7 @@ export namespace Prisma {
     pseudoname?: SortOrder
     password?: SortOrder
     avatarUrl?: SortOrder
+    refreshToken?: SortOrder
     join_date?: SortOrder
     created_at?: SortOrder
   }
@@ -9476,6 +9523,7 @@ export namespace Prisma {
     pseudoname?: SortOrder
     password?: SortOrder
     avatarUrl?: SortOrder
+    refreshToken?: SortOrder
     join_date?: SortOrder
     created_at?: SortOrder
   }
@@ -9486,6 +9534,7 @@ export namespace Prisma {
     pseudoname?: SortOrder
     password?: SortOrder
     avatarUrl?: SortOrder
+    refreshToken?: SortOrder
     join_date?: SortOrder
     created_at?: SortOrder
   }
@@ -9713,6 +9762,7 @@ export namespace Prisma {
     type?: SortOrder
     read?: SortOrder
     message?: SortOrder
+    meta?: SortOrder
     created_at?: SortOrder
   }
 
@@ -10600,6 +10650,7 @@ export namespace Prisma {
     type: $Enums.NotificationType
     read?: boolean
     message: string
+    meta?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
   }
 
@@ -10608,6 +10659,7 @@ export namespace Prisma {
     type: $Enums.NotificationType
     read?: boolean
     message: string
+    meta?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
   }
 
@@ -10792,6 +10844,7 @@ export namespace Prisma {
     type?: EnumNotificationTypeFilter<"Notification"> | $Enums.NotificationType
     read?: BoolFilter<"Notification"> | boolean
     message?: StringFilter<"Notification"> | string
+    meta?: JsonNullableFilter<"Notification">
     created_at?: DateTimeFilter<"Notification"> | Date | string
   }
 
@@ -10869,6 +10922,7 @@ export namespace Prisma {
     pseudoname: string
     password: string
     avatarUrl?: string | null
+    refreshToken?: string | null
     join_date?: Date | string
     created_at?: Date | string
     comments?: CommentCreateNestedManyWithoutUserInput
@@ -10885,6 +10939,7 @@ export namespace Prisma {
     pseudoname: string
     password: string
     avatarUrl?: string | null
+    refreshToken?: string | null
     join_date?: Date | string
     created_at?: Date | string
     comments?: CommentUncheckedCreateNestedManyWithoutUserInput
@@ -10985,6 +11040,7 @@ export namespace Prisma {
     pseudoname?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     join_date?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     comments?: CommentUpdateManyWithoutUserNestedInput
@@ -11001,6 +11057,7 @@ export namespace Prisma {
     pseudoname?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     join_date?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     comments?: CommentUncheckedUpdateManyWithoutUserNestedInput
@@ -11090,6 +11147,7 @@ export namespace Prisma {
     pseudoname: string
     password: string
     avatarUrl?: string | null
+    refreshToken?: string | null
     join_date?: Date | string
     created_at?: Date | string
     posts?: PostCreateNestedManyWithoutUserInput
@@ -11106,6 +11164,7 @@ export namespace Prisma {
     pseudoname: string
     password: string
     avatarUrl?: string | null
+    refreshToken?: string | null
     join_date?: Date | string
     created_at?: Date | string
     posts?: PostUncheckedCreateNestedManyWithoutUserInput
@@ -11169,6 +11228,7 @@ export namespace Prisma {
     pseudoname?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     join_date?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     posts?: PostUpdateManyWithoutUserNestedInput
@@ -11185,6 +11245,7 @@ export namespace Prisma {
     pseudoname?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     join_date?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     posts?: PostUncheckedUpdateManyWithoutUserNestedInput
@@ -11226,6 +11287,7 @@ export namespace Prisma {
     pseudoname: string
     password: string
     avatarUrl?: string | null
+    refreshToken?: string | null
     join_date?: Date | string
     created_at?: Date | string
     posts?: PostCreateNestedManyWithoutUserInput
@@ -11242,6 +11304,7 @@ export namespace Prisma {
     pseudoname: string
     password: string
     avatarUrl?: string | null
+    refreshToken?: string | null
     join_date?: Date | string
     created_at?: Date | string
     posts?: PostUncheckedCreateNestedManyWithoutUserInput
@@ -11305,6 +11368,7 @@ export namespace Prisma {
     pseudoname?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     join_date?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     posts?: PostUpdateManyWithoutUserNestedInput
@@ -11321,6 +11385,7 @@ export namespace Prisma {
     pseudoname?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     join_date?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     posts?: PostUncheckedUpdateManyWithoutUserNestedInput
@@ -11337,6 +11402,7 @@ export namespace Prisma {
     pseudoname: string
     password: string
     avatarUrl?: string | null
+    refreshToken?: string | null
     join_date?: Date | string
     created_at?: Date | string
     posts?: PostCreateNestedManyWithoutUserInput
@@ -11353,6 +11419,7 @@ export namespace Prisma {
     pseudoname: string
     password: string
     avatarUrl?: string | null
+    refreshToken?: string | null
     join_date?: Date | string
     created_at?: Date | string
     posts?: PostUncheckedCreateNestedManyWithoutUserInput
@@ -11374,6 +11441,7 @@ export namespace Prisma {
     pseudoname: string
     password: string
     avatarUrl?: string | null
+    refreshToken?: string | null
     join_date?: Date | string
     created_at?: Date | string
     posts?: PostCreateNestedManyWithoutUserInput
@@ -11390,6 +11458,7 @@ export namespace Prisma {
     pseudoname: string
     password: string
     avatarUrl?: string | null
+    refreshToken?: string | null
     join_date?: Date | string
     created_at?: Date | string
     posts?: PostUncheckedCreateNestedManyWithoutUserInput
@@ -11422,6 +11491,7 @@ export namespace Prisma {
     pseudoname?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     join_date?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     posts?: PostUpdateManyWithoutUserNestedInput
@@ -11438,6 +11508,7 @@ export namespace Prisma {
     pseudoname?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     join_date?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     posts?: PostUncheckedUpdateManyWithoutUserNestedInput
@@ -11465,6 +11536,7 @@ export namespace Prisma {
     pseudoname?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     join_date?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     posts?: PostUpdateManyWithoutUserNestedInput
@@ -11481,6 +11553,7 @@ export namespace Prisma {
     pseudoname?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     join_date?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     posts?: PostUncheckedUpdateManyWithoutUserNestedInput
@@ -11497,6 +11570,7 @@ export namespace Prisma {
     pseudoname: string
     password: string
     avatarUrl?: string | null
+    refreshToken?: string | null
     join_date?: Date | string
     created_at?: Date | string
     posts?: PostCreateNestedManyWithoutUserInput
@@ -11513,6 +11587,7 @@ export namespace Prisma {
     pseudoname: string
     password: string
     avatarUrl?: string | null
+    refreshToken?: string | null
     join_date?: Date | string
     created_at?: Date | string
     posts?: PostUncheckedCreateNestedManyWithoutUserInput
@@ -11545,6 +11620,7 @@ export namespace Prisma {
     pseudoname?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     join_date?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     posts?: PostUpdateManyWithoutUserNestedInput
@@ -11561,6 +11637,7 @@ export namespace Prisma {
     pseudoname?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     join_date?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     posts?: PostUncheckedUpdateManyWithoutUserNestedInput
@@ -11602,6 +11679,7 @@ export namespace Prisma {
     pseudoname: string
     password: string
     avatarUrl?: string | null
+    refreshToken?: string | null
     join_date?: Date | string
     created_at?: Date | string
     posts?: PostCreateNestedManyWithoutUserInput
@@ -11618,6 +11696,7 @@ export namespace Prisma {
     pseudoname: string
     password: string
     avatarUrl?: string | null
+    refreshToken?: string | null
     join_date?: Date | string
     created_at?: Date | string
     posts?: PostUncheckedCreateNestedManyWithoutUserInput
@@ -11681,6 +11760,7 @@ export namespace Prisma {
     pseudoname?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     join_date?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     posts?: PostUpdateManyWithoutUserNestedInput
@@ -11697,6 +11777,7 @@ export namespace Prisma {
     pseudoname?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     avatarUrl?: NullableStringFieldUpdateOperationsInput | string | null
+    refreshToken?: NullableStringFieldUpdateOperationsInput | string | null
     join_date?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     posts?: PostUncheckedUpdateManyWithoutUserNestedInput
@@ -11732,6 +11813,7 @@ export namespace Prisma {
     type: $Enums.NotificationType
     read?: boolean
     message: string
+    meta?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
   }
 
@@ -11824,6 +11906,7 @@ export namespace Prisma {
     type?: EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
     read?: BoolFieldUpdateOperationsInput | boolean
     message?: StringFieldUpdateOperationsInput | string
+    meta?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -11832,6 +11915,7 @@ export namespace Prisma {
     type?: EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
     read?: BoolFieldUpdateOperationsInput | boolean
     message?: StringFieldUpdateOperationsInput | string
+    meta?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -11840,6 +11924,7 @@ export namespace Prisma {
     type?: EnumNotificationTypeFieldUpdateOperationsInput | $Enums.NotificationType
     read?: BoolFieldUpdateOperationsInput | boolean
     message?: StringFieldUpdateOperationsInput | string
+    meta?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 

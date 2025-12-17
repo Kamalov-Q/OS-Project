@@ -14,7 +14,7 @@ import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { OptionalJwtAuthGuard } from '../auth/guards/optional-jwt.guard';
 
-@ApiTags('Likes')
+@ApiTags('Likes') 
 @Controller('likes')
 export class LikesController {
   constructor(private readonly likesService: LikesService) {}

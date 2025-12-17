@@ -1,21 +1,13 @@
-import { IsString, IsOptional, MinLength } from 'class-validator';
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
+import { IsOptional, IsString, MinLength } from "class-validator";
 
 export class CreateUserDto {
-  @ApiProperty({
-    example: 'john_doe',
-    description: 'Unique username for the user',
-    minLength: 3,
-  })
+  @ApiProperty({ example: 'john_doe', minLength: 3 })
   @IsString()
   @MinLength(3)
   username: string;
 
-  @ApiProperty({
-    example: 'strongPassword123',
-    description: 'Account password (will be hashed)',
-    minLength: 6,
-  })
+  @ApiProperty({ example: 'strongPassword123', minLength: 6 })
   @IsString()
   @MinLength(6)
   password: string;
@@ -25,10 +17,7 @@ export class CreateUserDto {
   @IsOptional()
   pseudoname?: string;
 
-  @ApiPropertyOptional({
-    example: 'https://cdn.example.com/avatars/user1.png',
-    description: 'Optional profile avatar URL',
-  })
+  @ApiPropertyOptional({ example: 'https://cdn.example.com/avatar.png' })
   @IsString()
   @IsOptional()
   avatarUrl?: string;

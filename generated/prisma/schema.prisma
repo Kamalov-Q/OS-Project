@@ -21,6 +21,7 @@ model User {
   pseudoname    String         @unique
   password      String
   avatarUrl     String?
+  refreshToken  String?
   join_date     DateTime       @default(now())
   posts         Post[]
   comments      Comment[]
@@ -30,11 +31,14 @@ model User {
   following     Follower[]     @relation("follower")
   views         PostView[]
   created_at    DateTime       @default(now())
+
+  @@index([username])
+  @@index([created_at])
 }
 
 model Post {
   id         String     @id @default(cuid())
-  user       User       @relation(fields: [userId], references: [id])
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId     String
   content    String
   imageUrls  Json?
@@ -42,57 +46,67 @@ model Post {
   comments   Comment[]
   likes      Like[]
   views      PostView[]
+
+  @@index([created_at])
 }
 
 model Comment {
   id         String   @id @default(cuid())
-  post       Post     @relation(fields: [postId], references: [id])
+  post       Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId     String
-  user       User     @relation(fields: [userId], references: [id])
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId     String
   content    String
   created_at DateTime @default(now())
+
+  @@index([created_at])
 }
 
 model Like {
   id         String   @id @default(cuid())
-  post       Post     @relation(fields: [postId], references: [id])
+  post       Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId     String
-  user       User     @relation(fields: [userId], references: [id])
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId     String
   created_at DateTime @default(now())
 
   @@unique([postId, userId])
+  @@index([created_at])
 }
 
 model Follower {
   id         String   @id @default(cuid())
-  follower   User     @relation("follower", fields: [followerId], references: [id])
+  follower   User     @relation("follower", fields: [followerId], references: [id], onDelete: Cascade)
   followerId String
-  followed   User     @relation("followed", fields: [followedId], references: [id])
+  followed   User     @relation("followed", fields: [followedId], references: [id], onDelete: Cascade)
   followedId String
   created_at DateTime @default(now())
 
   @@unique([followerId, followedId])
+  @@index([created_at])
 }
 
 model Notification {
   id         String           @id @default(cuid())
-  user       User             @relation(fields: [userId], references: [id])
+  user       User             @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId     String
   type       NotificationType
   read       Boolean          @default(false)
   message    String
+  meta       Json?
   created_at DateTime         @default(now())
+
+  @@index([created_at])
 }
 
 model PostView {
   id       String   @id @default(cuid())
-  post     Post     @relation(fields: [postId], references: [id])
+  post     Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
   postId   String
-  user     User     @relation(fields: [userId], references: [id])
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId   String
   viewedAt DateTime @default(now())
 
   @@unique([postId, userId])
+  @@index([viewedAt])
 }

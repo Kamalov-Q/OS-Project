@@ -86,7 +86,7 @@ export class UsersController {
     schema: {
       example: {
         id: '1',
-        username: 'john_doe',
+        username: 'john_doe', 
         pseudoname: 'John',
         avatarUrl: null,
       },

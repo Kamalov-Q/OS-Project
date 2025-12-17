@@ -2,7 +2,7 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import { IsNotEmpty, IsOptional, IsString, ValidateNested } from 'class-validator';
 
-class PostImageDto {
+export class PostImageDto {
   @IsString()
   url: string;
 }
@@ -13,7 +13,7 @@ export class CreatePostDto {
     description: 'Content for a post',
   })
   @IsString()
-  @IsNotEmpty()
+  @IsNotEmpty() 
   content: string;
 
   @ApiPropertyOptional({

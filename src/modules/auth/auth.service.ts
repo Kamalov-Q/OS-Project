@@ -1,7 +1,6 @@
 import {
   BadRequestException,
   Injectable,
-  Logger,
   UnauthorizedException,
 } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
@@ -12,29 +11,42 @@ import { LoginDto } from './dto/login-user.dto';
 
 @Injectable()
 export class AuthService {
-  private logger = new Logger();
+  private ACCESS_TOKEN_TTL = '30m';
+  private REFRESH_TOKEN_TTL = '1d';
+
   constructor(
     private usersService: UsersService,
     private jwtService: JwtService,
-  ) {}
+  ) { }
 
   private genPseudoname(): string {
     const n = Math.floor(Math.random() * 1_000_000);
     return `user-${String(n).padStart(6, '0')}`;
   }
 
-  async register(registerDto: RegisterDto) {
-    const username = registerDto.username.trim().toLowerCase();
-    const password = registerDto.password;
+  private async signTokens(userId: string) {
+    const accessToken = this.jwtService.sign({ sub: userId }, { expiresIn: this.ACCESS_TOKEN_TTL });
+    const refreshToken = this.jwtService.sign({ sub: userId }, { expiresIn: this.REFRESH_TOKEN_TTL });
 
-    const existingUser = await this.usersService.findByUsername(username);
-    if (existingUser) {
+    const hashedRefreshToken = await bcrypt.hash(refreshToken, 10);
+    await this.usersService.update(userId, { refreshToken: hashedRefreshToken });
+
+    return { accessToken, refreshToken };
+  }
+
+
+  async register(dto: RegisterDto) {
+    const username = dto.username.trim().toLowerCase();
+    const password = dto.password;
+
+    // Check for existing user
+    if (await this.usersService.findByUsername(username)) {
       throw new BadRequestException('Username already exists!');
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-
     let pseudoname = this.genPseudoname();
+
     for (let i = 0; i < 10; i++) {
       try {
         const user = await this.usersService.create({
@@ -43,56 +55,57 @@ export class AuthService {
           pseudoname,
         });
 
+        const tokens = await this.signTokens(user.id);
+
         return {
-          id: user.id,
-          username: user.username,
-          pseudoname: user.pseudoname,
-          accessToken: this.jwtService.sign({ sub: user.id }),
+          user: { id: user.id, username, pseudoname },
+          ...tokens,
         };
-      } catch (err) {
-        if (err?.code === 'P2002') {
-          pseudoname = this.genPseudoname();
-          continue;
-        }
-        console.error(err);
-        this.logger.error('Error while registering user: ', err);
-        throw err;
+      } catch (err: any) {
+        if (err?.code === 'P2002') pseudoname = this.genPseudoname();
+        else throw err;
       }
     }
 
-    throw new BadRequestException(
-      'Could not generate unique pseudoname. Try again.',
-    );
+    throw new BadRequestException('Could not generate unique pseudoname');
   }
 
-  async login(loginDto: LoginDto) {
-    const { password } = loginDto;
-    const username = loginDto.username.trim().toLowerCase();
+  async login(dto: LoginDto) {
+    const username = dto.username.trim().toLowerCase();
     const user = await this.usersService.findByUsername(username);
 
-    if (!user) {
-      throw new UnauthorizedException('User not found!');
-    }
-
-    const ok = await bcrypt.compare(password, user.password);
-
-    if (!ok) {
+    if (!user) throw new UnauthorizedException('User not found!');
+    if (!(await bcrypt.compare(dto.password, user.password))) {
       throw new UnauthorizedException('Invalid credentials!');
     }
 
+    const tokens = await this.signTokens(user.id);
+
     return {
-      id: user.id,
-      username: user.username,
-      pseudoname: user.pseudoname,
-      accessToken: this.jwtService.sign({ sub: user.id }),
+      user: { id: user.id, username: user.username, pseudoname: user.pseudoname },
+      ...tokens,
     };
   }
 
-  async validateToken(token: string) {
+  async refresh(refreshToken: string) {
     try {
-      return this.jwtService.verify(token);
+      const payload = this.jwtService.verify(refreshToken);
+      const user = await this.usersService.findById(payload.sub);
+
+      if (!user?.refreshToken || !(await bcrypt.compare(refreshToken, user.refreshToken))) {
+        throw new UnauthorizedException('Invalid refresh token');
+      }
+
+      const tokens = await this.signTokens(user.id);
+      return tokens;
     } catch {
-      throw new UnauthorizedException('Invalid token');
+      throw new UnauthorizedException('Invalid refresh token');
     }
   }
+
+  async logout(userId: string) {
+    await this.usersService.update(userId, { refreshToken: null });
+    return { success: true };
+  }
+
 }

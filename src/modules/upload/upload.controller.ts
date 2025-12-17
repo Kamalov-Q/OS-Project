@@ -22,7 +22,7 @@ function imageFileFilter(req: any, file: Express.Multer.File, cb: any) {
 function editFileName(req: any, file: Express.Multer.File, cb: any) {
   const unique = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
   cb(null, `${unique}${extname(file.originalname).toLowerCase()}`);
-}
+} 
 @ApiTags('Uploads')
 @Controller('uploads')
 export class UploadController {
