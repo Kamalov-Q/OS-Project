@@ -1,9 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class ViewsService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
   private publicUserSelect = {
     id: true,
@@ -48,13 +48,20 @@ export class ViewsService {
       };
     });
   }
-
   async create(userId: string, postId: string) {
+    const postExists = await this.prisma.post.findUnique({
+      where: { id: postId },
+      select: { id: true },
+    });
+
+    if (!postExists) {
+      throw new BadRequestException('Post not found');
+    }
+
     try {
-      const view = await this.prisma.postView.create({
+      return await this.prisma.postView.create({
         data: { userId, postId },
       });
-      return view;
     } catch (error: any) {
       if (error.code === 'P2002') {
         return { message: 'Already viewed' };
@@ -62,6 +69,7 @@ export class ViewsService {
       throw error;
     }
   }
+
 
   async countViews(postId: string) {
     const count = await this.prisma.postView.count({

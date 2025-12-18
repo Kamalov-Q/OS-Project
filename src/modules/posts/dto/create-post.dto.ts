@@ -21,7 +21,6 @@ export class CreatePostDto {
     type: [Object],
     description: 'Image for a post',
   })
-  @IsString()
   @IsOptional()
   @ValidateNested({ each: true })
   @Type(() => PostImageDto)
