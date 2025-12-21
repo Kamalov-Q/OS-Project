@@ -15,6 +15,7 @@ async function bootstrap() {
     'http://localhost:5176',
     'http://localhost:5177',
     'https://os-project-k18n.onrender.com',
+    'https://anonymous-sooty-theta.vercel.app'
   ];
 
   app.enableCors({
