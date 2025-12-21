@@ -1,9 +1,13 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { EventsGateway } from 'src/notifications/events.gateway';
 
 @Injectable()
 export class ViewsService {
-  constructor(private readonly prisma: PrismaService) { }
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly eventsGateway: EventsGateway,
+  ) { }
 
   private publicUserSelect = {
     id: true,
@@ -48,6 +52,7 @@ export class ViewsService {
       };
     });
   }
+
   async create(userId: string, postId: string) {
     const postExists = await this.prisma.post.findUnique({
       where: { id: postId },
@@ -59,17 +64,38 @@ export class ViewsService {
     }
 
     try {
-      return await this.prisma.postView.create({
+      console.log(`🔍 Attempting to create view for user ${userId} on post ${postId}`);
+
+      const view = await this.prisma.postView.create({
         data: { userId, postId },
+        include: {
+          user: {
+            select: {
+              id: true,
+              pseudoname: true,
+              avatarUrl: true,
+              username: true,
+            },
+          },
+        },
       });
+
+      console.log(`✅ View created successfully:`, view.id);
+
+      // ✅ Only emit socket event for NEW views
+      this.eventsGateway.emitNewView(view, postId);
+      console.log('👁️ Emitted view:created event for post:', postId);
+
+      return view;
     } catch (error: any) {
       if (error.code === 'P2002') {
+        console.log(`⚠️ User ${userId} already viewed post ${postId} - NOT emitting socket event`);
+        // ✅ Don't emit socket event for duplicate views
         return { message: 'Already viewed' };
       }
       throw error;
     }
   }
-
 
   async countViews(postId: string) {
     const count = await this.prisma.postView.count({

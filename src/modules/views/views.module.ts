@@ -1,11 +1,13 @@
 import { Module } from '@nestjs/common';
-import { ViewsService } from './views.service';
 import { ViewsController } from './views.controller';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { ViewsService } from './views.service';
+import { PrismaModule } from 'src/prisma/prisma.module';
+import { EventsModule } from 'src/notifications/events.module';
 
 @Module({
+  imports: [PrismaModule, EventsModule],
   controllers: [ViewsController],
-  providers: [ViewsService, PrismaService],
+  providers: [ViewsService],
   exports: [ViewsService],
 })
-export class ViewsModule {}
+export class ViewsModule { }

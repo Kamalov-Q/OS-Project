@@ -14,7 +14,7 @@ export class CommentsService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly eventsGateway: EventsGateway,
-  ) {}
+  ) { }
 
   private publicUserSelect = {
     id: true,
@@ -163,17 +163,20 @@ export class CommentsService {
   }
 
   async remove(id: string, userId: string) {
-    const comment = await this.prisma.comment.findUnique({ where: { id } });
+    const comment = await this.prisma.comment.findUnique({
+      where: { id },
+      select: { id: true, userId: true, postId: true } // ← Add postId to select
+    });
+
     if (!comment) throw new NotFoundException('Comment not found');
     if (comment.userId !== userId)
       throw new ForbiddenException('Not authorized');
 
     await this.prisma.comment.delete({ where: { id } });
 
-    this.eventsGateway.emitCommentDeleted(id);
+    this.eventsGateway.emitCommentDeleted(id, comment.postId);
     return { deleted: true, id };
   }
-
   async countByPost(postId: string) {
     const count = await this.prisma.comment.count({ where: { postId } });
     return { postId, count };

@@ -48,6 +48,14 @@ export type LikeEventPayload = {
   user: PublicUser;
 };
 
+export type ViewEventPayload = {
+  id: string;
+  userId: string;
+  postId: string;
+  viewedAt?: Date | string;
+  user: PublicUser;
+};
+
 export type FollowEventPayload = {
   id: string;
   followerId: string;
@@ -125,13 +133,13 @@ export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
       user: this.toPublicUser(comment.user),
       post: comment.post
         ? {
-            id: comment.post.id,
-            userId: comment.post.userId,
-            content: comment.post.content,
-            user: comment.post.user
-              ? this.toPublicUser(comment.post.user)
-              : undefined,
-          }
+          id: comment.post.id,
+          userId: comment.post.userId,
+          content: comment.post.content,
+          user: comment.post.user
+            ? this.toPublicUser(comment.post.user)
+            : undefined,
+        }
         : undefined,
     };
   }
@@ -143,6 +151,16 @@ export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
       postId: like.postId,
       created_at: like.created_at,
       user: this.toPublicUser(like.user),
+    };
+  }
+
+  private sanitizeView(view: any): ViewEventPayload {
+    return {
+      id: view.id,
+      userId: view.userId,
+      postId: view.postId,
+      viewedAt: view.viewedAt,
+      user: this.toPublicUser(view.user),
     };
   }
 
@@ -176,7 +194,7 @@ export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
     if (safe?.post?.userId && safe.userId !== safe.post.userId) {
       this.server.to(`user:${safe.post.userId}`).emit('notification', {
         type: NotificationType.NEW_COMMENT,
-        message: `${safe.user.displayName} commented on your post`,
+        message: `${safe.user.pseudoname} commented on your post`,
         data: safe,
       });
     }
@@ -186,8 +204,8 @@ export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
     this.server.emit('comment:updated', this.sanitizeComment(comment));
   }
 
-  emitCommentDeleted(commentId: string) {
-    this.server.emit('comment:deleted', { commentId });
+  emitCommentDeleted(commentId: string, postId: string) {
+    this.server.emit('comment:deleted', { commentId, postId });
   }
 
   emitNewLike(like: LikeEventPayload | any, post: PostEventPayload | any) {
@@ -199,7 +217,7 @@ export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
     if (safePost?.userId && safeLike.userId !== safePost.userId) {
       this.server.to(`user:${safePost.userId}`).emit('notification', {
         type: NotificationType.NEW_LIKE,
-        message: `${safeLike.user.displayName} liked your post`,
+        message: `${safeLike.user.pseudoname} liked your post`,
         data: { like: safeLike, post: safePost },
       });
     }
@@ -209,6 +227,16 @@ export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
     this.server.emit('like:removed', { postId, userId });
   }
 
+  // ✅ VIEW METHODS
+  emitNewView(view: any, postId: string) {
+    const safeView = view.user ? this.sanitizeView(view) : view;
+    console.log('🔔 Emitting view:created event:', { view: safeView, postId });
+    this.server.emit('view:created', {
+      view: safeView,
+      postId,
+    });
+  }
+
   emitNewFollow(follower: FollowEventPayload | any) {
     const safe = this.sanitizeFollow(follower);
     this.server.emit('follower:created', safe);
@@ -216,7 +244,7 @@ export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
     if (safe?.followedId) {
       this.server.to(`user:${safe.followedId}`).emit('notification', {
         type: NotificationType.NEW_FOLLOW,
-        message: `${safe.follower.displayName} started following you`,
+        message: `${safe.follower.pseudoname} started following you`,
         data: safe,
       });
     }
@@ -229,7 +257,7 @@ export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @SubscribeMessage('comment:typing')
   handleTyping(
     client: Socket,
-    payload: { postId: string; displayName: string },
+    payload: { postId: string; pseudoname: string },
   ) {
     client.broadcast.emit('comment:typing', payload);
   }
@@ -237,7 +265,7 @@ export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @SubscribeMessage('comment:stop-typing')
   handleStopTyping(
     client: Socket,
-    payload: { postId: string; displayName: string },
+    payload: { postId: string; pseudoname: string },
   ) {
     client.broadcast.emit('comment:stop-typing', payload);
   }

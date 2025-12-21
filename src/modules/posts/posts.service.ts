@@ -69,25 +69,44 @@ export class PostsService {
   }
 
   async create(userId: string, createPostDto: CreatePostDto) {
+    console.log(createPostDto, 'Initial before creation of a post')
     const post = await this.prisma.post.create({
       data: {
         content: createPostDto.content,
-        imageUrls: createPostDto.imageUrls ? (createPostDto.imageUrls as any) : [],
         userId,
+        imageUrls: createPostDto.imageUrls
+          ? (createPostDto.imageUrls as unknown as Prisma.InputJsonValue)
+          : [],
       },
       include: {
         user: { select: this.internalUserSelect },
         comments: true,
         likes: { include: { user: { select: this.internalUserSelect } } },
-        views: { include: { user: { select: this.internalUserSelect } } },
+        views: true,
+        _count: { select: { likes: true, comments: true, views: true } },
       },
     });
+    console.log(post, 'After creation');
 
-    const usernameMap = new Map([[userId, (await this.prisma.user.findUnique({ where: { id: userId }, select: { username: true } }))?.username ?? '']]);
+    const usernameMap = new Map([
+      [
+        userId,
+        (await this.prisma.user.findUnique({
+          where: { id: userId },
+          select: { username: true },
+        }))?.username ?? '',
+      ],
+    ]);
 
-    this.eventsGateway.emitNewPost(post);
-    return this.attachDisplayName([post], usernameMap)[0];
+    const shaped = this.attachDisplayName([post], usernameMap)[0];
+
+    // Emit socket after shaping the post
+    this.eventsGateway.emitNewPost(shaped);
+
+    return shaped;
   }
+
+
 
   async findAll(viewerId: string | null, query: PostQueryDto) {
     const { search, limit = 20, offset = 0 } = query;
